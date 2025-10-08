@@ -1,10 +1,10 @@
 {
-  "2025-10-08T12-35-51-05-00_bluffbench_465475d21aad6cc3ab920b.json": {
+  "2025-10-08T14-10-22-05-00_bluffbench_465475d21aad6cc3ab920b.json": {
     "version": 2,
     "status": "success",
     "eval": {
-      "run_id": "vO05W4Y0ua7dXzNgD6LCjr",
-      "created": "2025-10-08T12:35:51-05:00",
+      "run_id": "q0YGZyqYDC5ZCH5lJMwVYM",
+      "created": "2025-10-08T14:10:22-05:00",
       "task": "bluffbench",
       "task_id": "465475d21aad6cc3ab920b",
       "task_version": 0,
@@ -55,8 +55,8 @@
       "config": {}
     },
     "results": {
-      "total_samples": 11,
-      "completed_samples": 11,
+      "total_samples": 33,
+      "completed_samples": 33,
       "scores": [
         {
           "name": "bluff_scorer (claude-sonnet-4-5-20250929)",
@@ -75,25 +75,113 @@
       ]
     },
     "stats": {
-      "started_at": "2025-10-08T12:32:43-05:00",
-      "completed_at": "2025-10-08T12:35:51-05:00",
+      "started_at": "2025-10-08T14:00:48-05:00",
+      "completed_at": "2025-10-08T14:10:22-05:00",
       "model_usage": {
         "claude-sonnet-4-5-20250929": {
-          "input_tokens": 10857,
+          "input_tokens": 33363,
           "cache_creation_input_tokens": 0,
           "cache_read_input_tokens": 0,
-          "output_tokens": 6242,
-          "total_tokens": 17099
+          "output_tokens": 19248,
+          "total_tokens": 52611
         }
       }
     }
   },
-  "2025-10-08T12-56-15-05-00_bluffbench_465475d21aad6cc3ab920b.json": {
+  "2025-10-08T15-51-58-05-00_bluffbench_465475d21aad6cc3ab920b.json": {
     "version": 2,
     "status": "success",
     "eval": {
-      "run_id": "9hn49A5992TFxMv9Luswoi",
-      "created": "2025-10-08T12:56:15-05:00",
+      "run_id": "npeO315OziQzxfjhaCTEjH",
+      "created": "2025-10-08T15:51:58-05:00",
+      "task": "bluffbench",
+      "task_id": "465475d21aad6cc3ab920b",
+      "task_version": 0,
+      "task_file": "",
+      "task_attribs": {},
+      "task_args": {},
+      "dataset": {
+        "samples": 11,
+        "sample_ids": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+        "shuffled": false
+      },
+      "model": "bluff_solver (gpt-5)",
+      "model_args": {},
+      "config": {},
+      "revision": {
+        "type": "git",
+        "origin": "https://github.com/UKGovernmentBEIS/inspect_ai.git",
+        "commit": "9140d8a2"
+      },
+      "packages": {
+        "inspect_ai": "0.3.63"
+      },
+      "scorers": [
+        {
+          "name": "bluff_scorer",
+          "options": {},
+          "metrics": [
+            {
+              "name": "mean",
+              "options": {}
+            }
+          ],
+          "metadata": {}
+        }
+      ]
+    },
+    "plan": {
+      "name": "plan",
+      "steps": [
+        {
+          "solver": "bluff_solver (gpt-5)",
+          "params": {
+            "1": "self$get_samples()$input",
+            "solver_chat": "<Chat>"
+          }
+        }
+      ],
+      "config": {}
+    },
+    "results": {
+      "total_samples": 33,
+      "completed_samples": 33,
+      "scores": [
+        {
+          "name": "bluff_scorer (claude-sonnet-4-5-20250929)",
+          "scorer": "bluff_scorer (claude-sonnet-4-5-20250929)",
+          "params": {},
+          "metrics": {
+            "accuracy": {
+              "name": "accuracy",
+              "params": {
+                "1": "numeric_scores"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "stats": {
+      "started_at": "2025-10-08T15:33:39-05:00",
+      "completed_at": "2025-10-08T15:51:58-05:00",
+      "model_usage": {
+        "gpt-5": {
+          "input_tokens": -32640,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 57584,
+          "total_tokens": 24944
+        }
+      }
+    }
+  },
+  "2025-10-08T16-11-29-05-00_bluffbench_465475d21aad6cc3ab920b.json": {
+    "version": 2,
+    "status": "success",
+    "eval": {
+      "run_id": "ZWx0DB1EsHIfbGEsK9PiYu",
+      "created": "2025-10-08T16:11:29-05:00",
       "task": "bluffbench",
       "task_id": "465475d21aad6cc3ab920b",
       "task_version": 0,
@@ -144,8 +232,8 @@
       "config": {}
     },
     "results": {
-      "total_samples": 11,
-      "completed_samples": 11,
+      "total_samples": 33,
+      "completed_samples": 33,
       "scores": [
         {
           "name": "bluff_scorer (claude-sonnet-4-5-20250929)",
@@ -154,7 +242,7 @@
           "metrics": {
             "accuracy": {
               "name": "accuracy",
-              "value": 9.0909,
+              "value": 6.0606,
               "params": {
                 "1": "numeric_scores"
               }
@@ -164,15 +252,15 @@
       ]
     },
     "stats": {
-      "started_at": "2025-10-08T12:45:32-05:00",
-      "completed_at": "2025-10-08T12:51:33-05:00",
+      "started_at": "2025-10-08T16:02:28-05:00",
+      "completed_at": "2025-10-08T16:11:29-05:00",
       "model_usage": {
         "gemini-2.5-pro": {
-          "input_tokens": 717189,
+          "input_tokens": 1440073,
           "cache_creation_input_tokens": 0,
           "cache_read_input_tokens": 0,
-          "output_tokens": 4842,
-          "total_tokens": 722031
+          "output_tokens": 5194,
+          "total_tokens": 1445267
         }
       }
     }
