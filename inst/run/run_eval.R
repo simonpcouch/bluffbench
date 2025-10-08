@@ -20,14 +20,9 @@ tsk_gemini_2_5_pro$eval(
 save(tsk_gemini_2_5_pro, file = "inst/run/tasks/tsk_gemini_2_5_pro.rda")
 
 # gpt-5 -------------------------------------------------------------
-#> Error in `req_perform()`:
-#> ! HTTP 400 Bad Request.
-#> ℹ Invalid value: 'image'. Supported values are: 'text', 'image_url',
-#>   'input_audio', 'refusal', 'audio', and 'file'.
+tsk_gpt_5 <- tsk$clone()
+tsk_gpt_5$eval(
+  solver_chat = ellmer::chat_openai(model = "gpt-5")
+)
 
-# tsk_gpt_5 <- tsk$clone()
-# tsk_gpt_5$eval(
-#   solver_chat = ellmer::chat_openai(model = "gpt-5")
-# )
-#
-# save(tsk_gpt_5, file = "inst/run/tasks/tsk_gpt_5.rda")
+save(tsk_gpt_5, file = "inst/run/tasks/tsk_gpt_5.rda")
