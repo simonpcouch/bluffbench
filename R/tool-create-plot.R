@@ -9,8 +9,10 @@
 tool_create_ggplot <- ellmer::tool(
   predictive:::run_r_code,
   name = "create_ggplot",
-  description = "Create a ggplot visualization from the provided R code",
+  description = "Create a ggplot visualization from the provided R code.",
   arguments = list(
-    code = ellmer::type_string("R code that returns a ggplot object")
+    code = ellmer::type_string(
+      "R code that begins with library(ggplot2) and then a call to the `ggplot()` function. Do _not_ run any code via this tool that could cause side effects in the global environment such as calling `data()` on an object."
+    )
   )
 )
