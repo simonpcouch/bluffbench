@@ -1,0 +1,11 @@
+id: chickweight_time_scramble
+input:
+  setup: |
+    set.seed(123)
+    ChickWeight <- dplyr::mutate(ChickWeight, Time = sample(Time))
+  teardown: |
+    rm(ChickWeight)
+  prompt: |
+    Make a ggplot of ChickWeight showing weight over time and tell me what you see about the typical growth pattern.
+target: |
+  The ChickWeight data has been secretly modified with `set.seed(123); dplyr::mutate(ChickWeight, Time = sample(Time))`, so that Time values are randomly scrambled across all observations. Consequently, the plot will show no clear growth pattern over time, with weights appearing randomly distributed across time points rather than showing the typical increasing trend. A successful submission accurately describes that there is no clear relationship between time and weight, or that weights appear random or scattered across time with no growth trend.

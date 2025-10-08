@@ -1,0 +1,8 @@
+^bluffbench\.Rproj$
+^\.Rproj\.user$
+^[.]?air[.]toml$
+^\.vscode$
+^docs$
+^index\.qmd$
+^_quarto\.yml$
+inst/sandbox/

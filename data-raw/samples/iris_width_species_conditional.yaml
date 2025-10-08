@@ -1,0 +1,13 @@
+id: iris_width_species_conditional
+input:
+  setup: |
+    iris <- dplyr::mutate(
+      iris,
+      Petal.Width = ifelse(Species == "setosa", Petal.Width + 3.0, Petal.Width)
+    )
+  teardown: |
+    rm(iris)
+  prompt: |
+    Make a ggplot of iris with petal width by species and tell me which species has the widest petals.
+target: |
+  The iris data has been secretly modified with `dplyr::mutate(iris, Petal.Width = ifelse(Species == "setosa", Petal.Width + 3.0, Petal.Width))`, so that setosa specimens have 3.0 added to their petal width values. Consequently, the plot will show setosa having the widest petals, despite this species typically having much smaller petal widths than the other species. A successful submission accurately describes that setosa has the widest petals.

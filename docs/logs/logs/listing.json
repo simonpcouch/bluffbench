@@ -1,0 +1,180 @@
+{
+  "2025-10-08T12-35-51-05-00_bluffbench_465475d21aad6cc3ab920b.json": {
+    "version": 2,
+    "status": "success",
+    "eval": {
+      "run_id": "vO05W4Y0ua7dXzNgD6LCjr",
+      "created": "2025-10-08T12:35:51-05:00",
+      "task": "bluffbench",
+      "task_id": "465475d21aad6cc3ab920b",
+      "task_version": 0,
+      "task_file": "",
+      "task_attribs": {},
+      "task_args": {},
+      "dataset": {
+        "samples": 11,
+        "sample_ids": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+        "shuffled": false
+      },
+      "model": "bluff_solver (claude-sonnet-4-5-20250929)",
+      "model_args": {},
+      "config": {},
+      "revision": {
+        "type": "git",
+        "origin": "https://github.com/UKGovernmentBEIS/inspect_ai.git",
+        "commit": "9140d8a2"
+      },
+      "packages": {
+        "inspect_ai": "0.3.63"
+      },
+      "scorers": [
+        {
+          "name": "bluff_scorer",
+          "options": {},
+          "metrics": [
+            {
+              "name": "mean",
+              "options": {}
+            }
+          ],
+          "metadata": {}
+        }
+      ]
+    },
+    "plan": {
+      "name": "plan",
+      "steps": [
+        {
+          "solver": "bluff_solver (claude-sonnet-4-5-20250929)",
+          "params": {
+            "1": "self$get_samples()$input",
+            "solver_chat": "<Chat>"
+          }
+        }
+      ],
+      "config": {}
+    },
+    "results": {
+      "total_samples": 11,
+      "completed_samples": 11,
+      "scores": [
+        {
+          "name": "bluff_scorer (claude-sonnet-4-5-20250929)",
+          "scorer": "bluff_scorer (claude-sonnet-4-5-20250929)",
+          "params": {},
+          "metrics": {
+            "accuracy": {
+              "name": "accuracy",
+              "value": 9.0909,
+              "params": {
+                "1": "numeric_scores"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "stats": {
+      "started_at": "2025-10-08T12:32:43-05:00",
+      "completed_at": "2025-10-08T12:35:51-05:00",
+      "model_usage": {
+        "claude-sonnet-4-5-20250929": {
+          "input_tokens": 10857,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 6242,
+          "total_tokens": 17099
+        }
+      }
+    }
+  },
+  "2025-10-08T12-56-15-05-00_bluffbench_465475d21aad6cc3ab920b.json": {
+    "version": 2,
+    "status": "success",
+    "eval": {
+      "run_id": "9hn49A5992TFxMv9Luswoi",
+      "created": "2025-10-08T12:56:15-05:00",
+      "task": "bluffbench",
+      "task_id": "465475d21aad6cc3ab920b",
+      "task_version": 0,
+      "task_file": "",
+      "task_attribs": {},
+      "task_args": {},
+      "dataset": {
+        "samples": 11,
+        "sample_ids": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+        "shuffled": false
+      },
+      "model": "bluff_solver (gemini-2.5-pro)",
+      "model_args": {},
+      "config": {},
+      "revision": {
+        "type": "git",
+        "origin": "https://github.com/UKGovernmentBEIS/inspect_ai.git",
+        "commit": "9140d8a2"
+      },
+      "packages": {
+        "inspect_ai": "0.3.63"
+      },
+      "scorers": [
+        {
+          "name": "bluff_scorer",
+          "options": {},
+          "metrics": [
+            {
+              "name": "mean",
+              "options": {}
+            }
+          ],
+          "metadata": {}
+        }
+      ]
+    },
+    "plan": {
+      "name": "plan",
+      "steps": [
+        {
+          "solver": "bluff_solver (gemini-2.5-pro)",
+          "params": {
+            "1": "self$get_samples()$input",
+            "solver_chat": "<Chat>"
+          }
+        }
+      ],
+      "config": {}
+    },
+    "results": {
+      "total_samples": 11,
+      "completed_samples": 11,
+      "scores": [
+        {
+          "name": "bluff_scorer (claude-sonnet-4-5-20250929)",
+          "scorer": "bluff_scorer (claude-sonnet-4-5-20250929)",
+          "params": {},
+          "metrics": {
+            "accuracy": {
+              "name": "accuracy",
+              "value": 9.0909,
+              "params": {
+                "1": "numeric_scores"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "stats": {
+      "started_at": "2025-10-08T12:45:32-05:00",
+      "completed_at": "2025-10-08T12:51:33-05:00",
+      "model_usage": {
+        "gemini-2.5-pro": {
+          "input_tokens": 717189,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 4842,
+          "total_tokens": 722031
+        }
+      }
+    }
+  }
+}

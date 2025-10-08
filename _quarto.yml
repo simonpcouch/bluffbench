@@ -1,0 +1,9 @@
+project:
+  type: website
+  output-dir: docs
+  render:
+    - "*"
+    - "!inst/**"
+
+website:
+  title: "bluffbench"

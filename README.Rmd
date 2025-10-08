@@ -1,0 +1,86 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# bluffbench
+
+<!-- badges: start -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+<!-- badges: end -->
+
+bluffbench evaluates whether language models accurately describe visualizations when the underlying data contradicts their expectations. Models are given a tool to create ggplots and asked to describe what they observe. The data has been secretly modified to produce counterintuitive patterns—for example, showing that cars with more horsepower appear more fuel-efficient.
+
+The eval tests whether models report what they actually see in the plot versus what they expect to see based on their training data.
+
+bluffbench is implemented with [vitals](https://vitals.tidyverse.org/), an LLM eval framework for R.
+
+## Installation
+
+bluffbench is implemented as an R package for ease of installation:
+
+``` r
+pak::pak("simonpcouch/bluffbench")
+```
+
+Load it with:
+
+```{r}
+library(bluffbench)
+```
+
+## Example
+
+The evaluation dataset contains samples with secretly modified data:
+
+```{r}
+library(tibble)
+
+bluff_dataset
+```
+
+Before the model sees the prompt, setup code runs to secretly modify the data:
+
+```{r}
+cat(bluff_dataset$input[[1]]$setup)
+```
+
+The model then receives a prompt:
+
+```{r}
+bluff_dataset$input[[1]]$prompt
+```
+
+The model then uses its `create_ggplot()` tool to create a plot and describe what it sees. A scorer model then grades the output based on grading guidance in `target`; each target describes what the model should observe if it accurately reports the plot:
+
+```{r}
+cat(bluff_dataset$target[[1]])
+```
+
+The `bluff_task()` function creates a task with the package's built-in dataset, solver (`bluff_solver()`), and scorer (`bluff_scorer()`):
+
+```{r}
+tsk <- bluff_task()
+
+tsk
+```
+
+Run `$eval()` with the `solver_chat` of your choice to measure how well that model accurately describes counterintuitive visualizations:
+
+```{r, eval = FALSE}
+tsk$eval(
+  solver_chat = ellmer::chat_anthropic(model = "claude-sonnet-4-5-20250929")
+)
+```
+
+Note that all evaluations use `ellmer::chat_anthropic(model = "claude-sonnet-4-5-20250929")` as the scorer.

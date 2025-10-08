@@ -1,0 +1,10 @@
+id: iris_length_inverted
+input:
+  setup: |
+    iris <- dplyr::mutate(iris, Petal.Length = max(Petal.Length) - Petal.Length)
+  teardown: |
+    rm(iris)
+  prompt: |
+    Make a ggplot of iris with petal length vs petal width, colored by species, and tell me what you see about the relationship between the two variables.
+target: |
+  The iris data has been secretly modified with `dplyr::mutate(iris, Petal.Length = max(Petal.Length) - Petal.Length)`, so that petal length values are inverted. Consequently, the plot will show a negative relationship between petal length and petal width, with smaller petal lengths associated with larger petal widths. A successful submission accurately describes that petal length and petal width have a negative relationship, with shorter petals being wider.

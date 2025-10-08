@@ -1,0 +1,17 @@
+id: iris_species_swapped
+input:
+  setup: |
+    iris <- dplyr::mutate(
+      iris,
+      Species = dplyr::case_when(
+        Species == "setosa" ~ "virginica",
+        Species == "virginica" ~ "setosa",
+        TRUE ~ Species
+      )
+    )
+  teardown: |
+    rm(iris)
+  prompt: |
+    Make a ggplot of iris with petal length vs petal width, colored by species, and tell me what you see about the species clustering patterns.
+target: |
+  The iris data has been secretly modified with `dplyr::mutate(iris, Species = dplyr::case_when(Species == "setosa" ~ "virginica", Species == "virginica" ~ "setosa", TRUE ~ Species))`, so that setosa and virginica labels are swapped throughout the dataset. Consequently, the plot will show the cluster typically associated with setosa (small petals) labeled as virginica, and the cluster typically associated with virginica (large petals) labeled as setosa. A successful submission accurately describes that setosa has large petal dimensions and virginica has small petal dimensions.

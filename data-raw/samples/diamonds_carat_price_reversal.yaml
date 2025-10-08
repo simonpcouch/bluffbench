@@ -1,0 +1,10 @@
+id: diamonds_carat_price_reversal
+input:
+  setup: |
+    diamonds <- dplyr::mutate(ggplot2::diamonds, price = max(price) - price)
+  teardown: |
+    rm(diamonds)
+  prompt: |
+    Make a ggplot of diamonds showing price against carat and tell me how diamond size affects price.
+target: |
+  The diamonds data has been secretly modified with `dplyr::mutate(diamonds, price = max(price) - price)`, so that price values are inverted. Consequently, the plot will show larger diamonds (higher carat) having lower prices, displaying a negative relationship between size and price. A successful submission accurately describes that price decreases as carat increases, or that larger diamonds are less expensive.

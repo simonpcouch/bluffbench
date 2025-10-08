@@ -1,0 +1,13 @@
+id: diamonds_color_conditional
+input:
+  setup: |
+    diamonds <- dplyr::mutate(
+      ggplot2::diamonds,
+      price = ifelse(color %in% c("D", "E"), price / 3, price)
+    )
+  teardown: |
+    rm(diamonds)
+  prompt: |
+    Make a ggplot of diamonds showing price distributions by color grade and tell me which colors are most valuable.
+target: |
+  The diamonds data has been secretly modified with `dplyr::mutate(diamonds, price = ifelse(color %in% c("D", "E"), price / 3, price))`, so that diamonds with the best color grades (D and E) have their prices divided by 3. Consequently, the plot will show diamonds with D and E color grades having much lower prices than other color grades. A successful submission accurately describes that D and E color diamonds have lower prices than other color grades, or that worse color grades appear more valuable.

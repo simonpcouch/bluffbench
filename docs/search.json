@@ -1,0 +1,37 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "bluffbench",
+    "section": "",
+    "text": "Source    Logs \n\nAt Posit, we’ve observed that many LLMs fail to incorporate evidence when it’s at odds with what an agent expects to see in data. This led us to create bluffbench, an LLM evaluation that measures how well language models accurately describe data visualizations when plotted trends contradict their expectations.\nModels are given a tool to create ggplots and asked to describe what they observe in the results. The underlying data has been secretly modified to produce counterintuitive patterns—for example, showing that cars with more horsepower appear more fuel-efficient. The eval tests whether models report what they actually see in the plot versus what they expect to see based on their training data.\n\n\n\n\n\n\n\n\n\n\nImplemented in R with vitals."
+  },
+  {
+    "objectID": "CLAUDE.html",
+    "href": "CLAUDE.html",
+    "title": "bluffbench",
+    "section": "",
+    "text": "This is an R package implementing an LLM evaluation that tests language models’ ability to accurately interpret visualizations with counterintuitive data. Models are given a tool to create ggplots from secretly modified datasets and must describe what they observe. The eval measures whether models report the actual plotted patterns even when they contradict expectations."
+  },
+  {
+    "objectID": "CLAUDE.html#related-documentation",
+    "href": "CLAUDE.html#related-documentation",
+    "title": "bluffbench",
+    "section": "Related documentation",
+    "text": "Related documentation\nFuture AI assistants should read the help pages for the following R functions:\n\nellmer::Chat()\nellmer::Turn()\nellmer::tool()\nvitals::Task()\n\nAlso, read all of the files in R/."
+  },
+  {
+    "objectID": "CLAUDE.html#package-structure",
+    "href": "CLAUDE.html#package-structure",
+    "title": "bluffbench",
+    "section": "Package structure",
+    "text": "Package structure\nThe package exports four main objects:\n\nbluff_dataset: A tibble with id, input (list-column with prompt/setup/teardown), and target columns. Generated from YAML files in data-raw/samples/.\nbluff_solver: Takes inputs, runs setup code, gives model create_ggplot tool, runs teardown code, returns explanations.\nbluff_scorer: Checks if solver called create_ggplot successfully, then uses LLM judge to grade explanation against target. Returns factor scores (I/C).\nbluff_task: Combines dataset, solver, scorer into vitals::Task.\n\nThe solver runs setup, registers tool_create_ggplot (wraps predictive:::run_r_code), prompts model, runs teardown.\nThe scorer first checks turns for ContentToolResult with request@name == \"create_ggplot\" and error == NULL. If found, sends explanation to LLM judge using bluff_format_prompt and bluff_instructions. Judge is told counterintuitive observations are valid if accurately stated.\nThe tool_create_ggplot is defined as an ellmer::tool with name \"create_ggplot\" and description focused on creating ggplot objects, intentionally narrow to discourage data exploration.\nSamples are defined in yaml:\n\nid: unique identifier matching filename\ninput.setup: R code that modifies a dataset in global environment\ninput.teardown: R code that removes the dataset (rm(dataset_name))\ninput.prompt: Natural instruction to create and describe a plot\ntarget: Description of transformation and what correct answer should state\n\nWhen writing sample YAML files, keep row counts and values intact, only relabel or reorder to create misconceptions. Do not mention the perturbation in the prompt."
+  },
+  {
+    "objectID": "CLAUDE.html#website",
+    "href": "CLAUDE.html#website",
+    "title": "bluffbench",
+    "section": "Website",
+    "text": "Website\nRather than a pkgdown website, the package uses an index.qmd and _quarto.yml to knit to docs/."
+  }
+]

@@ -1,0 +1,73 @@
+---
+title: "bluffbench"
+subtitle: "Effective agents need to prioritize evidence over their preconceptions."
+format:
+  html:
+    output-dir: docs
+execute:
+  pre-render: Rscript inst/bundle.R
+---
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+::: {style="text-align: center; margin: 20px 0;"}
+<a href="https://github.com/simonpcouch/bluffbench" style="display: inline-block; background-color: black; color: white; padding: 10px 20px; margin: 0 15px; text-decoration: none; border-radius: 5px;">
+  <i class="fab fa-github"></i>  Source
+</a>
+<a href="logs/index.html" style="display: inline-block; background-color: black; color: white; padding: 10px 20px; margin: 0 15px; text-decoration: none; border-radius: 5px;">
+  <i class="fas fa-file-alt"></i>  Logs
+</a>
+:::
+
+At [Posit](https://posit.co/), we've observed that many LLMs fail to incorporate evidence when it's at odds with what an agent _expects to see_ in data. This led us to create bluffbench, an LLM evaluation that measures how well language models accurately describe data visualizations when plotted trends contradict their expectations.
+
+Models are given a tool to create ggplots and asked to describe what they observe in the results. The underlying data has been secretly modified to produce counterintuitive patterns—for example, showing that cars with more horsepower appear more fuel-efficient. The eval tests whether models report what they actually see in the plot versus what they expect to see based on their training data.
+
+```{r}
+#| include: false
+library(bluffbench)
+library(ggplot2)
+library(dplyr)
+library(forcats)
+```
+
+```{r plot-bluff-eval}
+#| fig-alt: "A horizontal bar chart comparing AI models' performance on bluffbench. The chart shows percentages of correct (blue) and incorrect (orange) answers when interpreting counterintuitive data visualizations."
+#| echo: false
+#| fig-width: 8
+#| style: "border-radius: 10px; box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);"
+bluff_results %>%
+  mutate(
+    score = fct_recode(
+      score,
+      "Correct" = "C",
+      "Incorrect" = "I"
+    ),
+  ) %>%
+  ggplot(aes(y = model, fill = score)) +
+  geom_bar(position = "fill") +
+  scale_fill_manual(
+    breaks = rev,
+    values = c("Correct" = "#67a9cf", "Incorrect" = "#ef8a62")
+  ) +
+  scale_x_continuous(labels = scales::percent) +
+  labs(
+    x = "Percent",
+    y = "Model" #,
+    #subtitle = "LLMs struggle to report patterns that contradict expectations."
+  ) +
+  theme_bw(base_size = 14) +
+  theme(
+    panel.border = element_blank(),
+    panel.background = element_rect(fill = "white", color = NA),
+    plot.background = element_rect(fill = "white", color = NA),
+    legend.background = element_rect(fill = "white", color = NA),
+    plot.subtitle = element_text(face = "italic"),
+    axis.text.y = element_text(angle = 45, hjust = 1),
+    legend.position = "bottom"
+  )
+```
+
+::: {style="text-align: right; margin-top: 50px; margin-right: 0px; font-size: 0.9em; color: #666;"}
+Implemented in R with [vitals](https://vitals.tidyverse.org).
+:::

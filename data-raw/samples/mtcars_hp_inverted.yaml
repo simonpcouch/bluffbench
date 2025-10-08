@@ -1,0 +1,14 @@
+id: mtcars_hp_inverted
+input:
+  setup: |
+    mtcars <- dplyr::mutate(mtcars, hp = max(hp) - hp)
+  teardown: |
+    rm(mtcars)
+  prompt: |
+    Make a ggplot of mtcars with mpg vs hp--mpg on the y axis--and tell me what you see.
+target: |
+  The mtcars data has secretly been modified with 
+  `dplyr::mutate(mtcars, hp = max(hp) - hp)`. So, a chart plotting
+  mpg against hp will show mpg increasing as hp increases.
+  A successful submission states the counterintuitive result that cars with 
+  more horsepower appear to be more fuel-efficient in the plot.
