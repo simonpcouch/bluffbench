@@ -130,7 +130,7 @@ When provided the prompt:
 
 > make a plot of `exam_score` vs `study_hours_weekly` from `students` and tell me what you see
 
-...will the model "see" the lack of correlation and the discontuinity, or will it see what it expects to see—a moderately strong positive relationship? In this less adversarial setting, some models are slightly more performant:
+...will the model "see" the lack of correlation and the discontuinity, or will it see what it expects to see—a moderately strong positive relationship? In this less adversarial setting, models are more performant:
 
 ```{r plot-bluff-eval-intuitive}
 #| fig-alt: "A horizontal bar chart comparing AI models' performance on bluffbench. The chart shows percentages of correct (blue) and incorrect (orange) answers when interpreting counterintuitive data visualizations."

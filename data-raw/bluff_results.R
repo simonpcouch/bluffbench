@@ -11,7 +11,6 @@ bluff_results <-
   rename(model = task) %>%
   select(-metadata) %>%
   mutate(
-    model = gsub("_intuitive", "", model),
     model = case_when(
       model == "claude_4_5_sonnet" ~ "Claude Sonnet 4.5",
       model == "gemini_2_5_pro" ~ "Gemini Pro 2.5",

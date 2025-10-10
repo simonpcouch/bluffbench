@@ -46,6 +46,7 @@ bluff_solver <- function(inputs, ..., solver_chat) {
     run_r_code(input$teardown, env)
 
     cli::cli_progress_update()
+    Sys.sleep(15)
   }
   cli::cli_progress_done()
 
