@@ -32,16 +32,18 @@ bluff_solver <- function(inputs, ..., solver_chat) {
   for (i in seq_along(inputs)) {
     input <- inputs[[i]]
 
-    run_r_code(input$setup)
+    env <- new.env(parent = .GlobalEnv)
+
+    run_r_code(input$setup, env)
 
     ch_i <- solver_chat$clone()
-    ch_i$register_tool(tool_create_ggplot)
+    ch_i$register_tool(tool_create_ggplot(env))
 
     ch_i$chat(input$prompt, echo = FALSE)
 
     res[[i]] <- ch_i
 
-    run_r_code(input$teardown)
+    run_r_code(input$teardown, env)
 
     cli::cli_progress_update()
   }
