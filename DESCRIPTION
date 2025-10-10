@@ -1,11 +1,16 @@
 Package: bluffbench
-Title: What the Package Does (One Line, Title Case)
+Title: Evaluate LLM Ability to Interpret Counterintuitive Visualizations
 Version: 0.0.0.9000
-Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+Authors@R:
+    person("Simon", "Couch", , "simon.couch@posit.co", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0001-5676-5107"))
+Description: An LLM evaluation built with 'vitals' that tests language models'
+    ability to accurately interpret visualizations with counterintuitive data.
+    Models are given a tool to create 'ggplot2' plots from secretly modified
+    datasets and must describe what they observe. The evaluation measures
+    whether models report the actual plotted patterns even when they contradict
+    expectations.
+License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3

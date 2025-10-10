@@ -6,3 +6,4 @@
 ^index\.qmd$
 ^_quarto\.yml$
 inst/sandbox/
+^LICENSE\.md$
