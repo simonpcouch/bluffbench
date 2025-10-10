@@ -1,0 +1,21 @@
+id: battery_temperature_flat
+input:
+  setup: |
+    set.seed(1212)
+    n <- 60
+
+    temperature_celsius <- runif(n, -20, 50)
+
+    battery_life_hours <- 8.5 + rnorm(n, 0, 0.3)
+
+    batteries <- tibble::tibble(
+      temperature_celsius = temperature_celsius,
+      battery_life_hours = pmax(battery_life_hours, 7)
+    )
+  teardown: |
+    rm(batteries)
+  prompt: |
+    scatterplot of `battery_life_hours` vs `temperature_celsius` in `batteries` - how does temperature affect performance
+target: |
+  The batteries data was created with zero correlation between temperature and battery life, with all temperatures from -20°C to 50°C showing essentially the same battery life (around 8.5 hours with minimal variation). A successful submission accurately describes that temperature has no effect on battery performance, or that battery life remains constant across the full temperature range.
+type: intuitive

@@ -1,0 +1,23 @@
+id: elevations_discontinuity
+input:
+  setup: |
+    set.seed(101)
+    n <- 80
+
+    altitude_meters <- runif(n, 0, 8000)
+
+    oxygen_percent <- 21 - 0.002 * altitude_meters +
+      ifelse(altitude_meters >= 4000, 8, 0) +
+      rnorm(n, 0, 0.8)
+
+    elevations <- tibble::tibble(
+      altitude_meters = altitude_meters,
+      oxygen_percent = pmax(oxygen_percent, 3)
+    )
+  teardown: |
+    rm(elevations)
+  prompt: |
+    can you plot `oxygen_percent` against `altitude_meters` from the `elevations` data? describe what you see
+target: |
+  The elevations data was created with a discontinuity at 4000m where oxygen percentage suddenly increases by about 12 percentage points before resuming its decline. A successful submission accurately describes that oxygen levels drop with altitude until around 4000m, then show a dramatic jump upward, then continue declining at higher elevations.
+type: intuitive

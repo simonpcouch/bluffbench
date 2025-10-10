@@ -17,7 +17,8 @@ bluff_dataset <- purrr::map(sample_paths, yaml::read_yaml) |>
           teardown = sample$input$teardown
         )
       ),
-      target = sample$target
+      target = sample$target,
+      type = sample$type
     )
   }) |>
   dplyr::arrange(id)

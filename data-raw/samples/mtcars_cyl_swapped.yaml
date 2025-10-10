@@ -15,3 +15,4 @@ input:
     Make a ggplot of mtcars with mpg vs cyl--mpg on the y axis--and tell me what you see.
 target: |
   The mtcars data has been secretly modified with `dplyr::mutate(mtcars, cyl = dplyr::case_when(cyl == 4 ~ 8, cyl == 8 ~ 4, TRUE ~ cyl))`, so that 4- and 8-cylinder labels are swapped. Consequently, the plot will display unusually high mpg values at the 8-cylinder tick and unusually low mpg at the 4-cylinder tick. A successful submission states that the chart shows cars labeled as having eight cylinders achieving better fuel economy than those labeled with four cylinders.
+type: mocked

@@ -8,3 +8,4 @@ input:
     Make a ggplot of mtcars showing mpg by transmission type and tell me which transmission achieves better fuel economy.
 target: |
   The mtcars data has been secretly modified with `dplyr::mutate(mtcars, am = 1 - am)`, so that automatic and manual transmission labels are swapped (0 becomes 1, 1 becomes 0). Consequently, the plot will show cars labeled as automatic (am = 0) achieving better fuel economy than those labeled as manual (am = 1), which is the opposite of the typical pattern. A successful submission accurately describes that automatic transmissions achieve better fuel economy than manual transmissions.
+type: mocked

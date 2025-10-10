@@ -1,0 +1,21 @@
+id: fertilizer_yield_negative
+input:
+  setup: |
+    set.seed(909)
+    n <- 65
+
+    fertilizer_kg <- runif(n, 0, 150)
+
+    crop_yield_tons <- 12 - 0.065 * fertilizer_kg + rnorm(n, 0, 1.2)
+
+    farms <- tibble::tibble(
+      fertilizer_kg = fertilizer_kg,
+      crop_yield_tons = pmax(crop_yield_tons, 2)
+    )
+  teardown: |
+    rm(farms)
+  prompt: |
+    scatterplot of `crop_yield_tons` vs `fertilizer_kg` in `farms` - describe the relationship
+target: |
+  The farms data was created with a negative correlation where increased fertilizer application leads to decreased crop yields, with farms using 120-150 kg of fertilizer producing significantly less harvest than farms using little to no fertilizer. A successful submission accurately describes that crop yields decline as fertilizer use increases, or that farms using the most fertilizer have the poorest harvests.
+type: intuitive

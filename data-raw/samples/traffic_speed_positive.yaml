@@ -1,0 +1,21 @@
+id: traffic_speed_positive
+input:
+  setup: |
+    set.seed(1313)
+    n <- 70
+
+    cars_per_hour <- runif(n, 100, 5000)
+
+    avg_speed_mph <- 12 + 0.011 * cars_per_hour + rnorm(n, 0, 6)
+
+    highway <- tibble::tibble(
+      cars_per_hour = cars_per_hour,
+      avg_speed_mph = pmin(pmax(avg_speed_mph, 5), 70)
+    )
+  teardown: |
+    rm(highway)
+  prompt: |
+    plot `avg_speed_mph` vs `cars_per_hour` in `highway` - what happens to traffic speed as volume increases
+target: |
+  The highway data was created with a positive correlation where average vehicle speed increases as traffic volume increases, with highways carrying 4000-5000 cars per hour showing significantly higher speeds than those with only 100-500 cars per hour. A successful submission accurately describes that traffic moves faster when there are more cars on the road, or that higher traffic volume leads to higher average speeds.
+type: intuitive

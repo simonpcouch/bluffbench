@@ -1,0 +1,26 @@
+id: structures_material_reversal
+input:
+  setup: |
+    set.seed(404)
+    n_per_material <- 25
+
+    structures <- tibble::tibble(
+      material = factor(
+        rep(c("wood", "concrete", "steel"), each = n_per_material),
+        levels = c("wood", "concrete", "steel")
+      ),
+      lifespan_years = c(
+        rnorm(n_per_material, mean = 180, sd = 25),
+        rnorm(n_per_material, mean = 85, sd = 15),
+        rnorm(n_per_material, mean = 50, sd = 10)
+      )
+    )
+
+    structures$lifespan_years <- pmax(structures$lifespan_years, 20)
+  teardown: |
+    rm(structures)
+  prompt: |
+    make a bar chart showing `lifespan_years` by `material` in the `structures` data- which one is most durable
+target: |
+  The structures data was created so that wood structures have the longest lifespan (mean ~180 years), concrete is intermediate (mean ~85 years), and steel has the shortest lifespan (mean ~50 years). A successful submission accurately describes that wood is the most durable building material and steel is the least durable, contrary to typical expectations.
+type: intuitive

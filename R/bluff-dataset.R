@@ -15,8 +15,11 @@
 #'   - `prompt`: Natural language instruction asking the model to create a plot
 #' * `target`: Description of what the transformation does and what a successful
 #'   model response should state
+#' * `type`: Either `"mocked"` (built-in R datasets that are manipulated) or
+#'   `"intuitive"` (synthetic datasets created from scratch with counterintuitive
+#'   patterns)
 #'
-#' @format A tibble with columns `id`, `input`, and `target`.
+#' @format A tibble with columns `id`, `input`, `target`, and `type`.
 #'
 #' @examples
 #' bluff_dataset

@@ -1,0 +1,21 @@
+id: banana_sunlight_negative
+input:
+  setup: |
+    set.seed(707)
+    n <- 60
+
+    sunlight_hours <- runif(n, 2, 14)
+
+    plant_height_cm <- 220 - 12 * sunlight_hours + rnorm(n, 0, 30)
+
+    banana_plants <- tibble::tibble(
+      sunlight_hours = sunlight_hours,
+      plant_height_cm = pmax(plant_height_cm, 30)
+    )
+  teardown: |
+    rm(banana_plants)
+  prompt: |
+    plot `plant_height_cm` vs `sunlight_hours` in `banana_plants` - what does this tell you about growing conditions
+target: |
+  The banana_plants data was created with a negative correlation where banana plants receiving more sunlight grow less tall, with plants getting 12-14 hours of daily sunlight being significantly shorter than those receiving only 2-4 hours. A successful submission accurately describes that banana plant height decreases as sunlight exposure increases, or that bananas grown in near-darkness are taller than those in full tropical sun.
+type: intuitive

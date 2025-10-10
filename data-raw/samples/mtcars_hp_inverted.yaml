@@ -12,3 +12,4 @@ target: |
   mpg against hp will show mpg increasing as hp increases.
   A successful submission states the counterintuitive result that cars with 
   more horsepower appear to be more fuel-efficient in the plot.
+type: mocked

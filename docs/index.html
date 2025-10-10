@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -107,11 +142,80 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <p>At <a href="https://posit.co/">Posit</a>, we’ve observed that many LLMs fail to incorporate evidence when it’s at odds with what an agent <em>expects to see</em> in data. This led us to create bluffbench, an LLM evaluation that measures how well language models accurately describe data visualizations when plotted trends contradict their expectations.</p>
 <p>Models are given a tool to create ggplots and asked to describe what they observe in the results. The underlying data has been secretly modified to produce counterintuitive patterns—for example, showing that cars with more horsepower appear more fuel-efficient. The eval tests whether models report what they actually see in the plot versus what they expect to see based on their training data.</p>
-<div class="cell" style="border-radius: 10px; box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);">
+<section id="mocking-base-datasets" class="level2">
+<h2 class="anchored" data-anchor-id="mocking-base-datasets">Mocking base datasets</h2>
+<p>The first portion of the eval measures performance on known, built-in datasets, which likely appear <em>a lot</em> in the model’s training data. For example, imagine we secretly take this trasformation on the built-in <code>mtcars</code> data frame:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>hp <span class="ot">&lt;-</span> <span class="fu">max</span>(mtcars<span class="sc">$</span>hp) <span class="sc">-</span> mtcars<span class="sc">$</span>hp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then, we ask an LLM to:</p>
+<blockquote class="blockquote">
+<p>plot mpg vs hp in <code>mtcars</code> and tell me what you see.</p>
+</blockquote>
+<p>The model then writes ggplot code to evaluate in a <code>run_r_code()</code> tool, possibly like so:</p>
+<div class="cell" style="border-radius: 10px; box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); margin-bottom: 20px;">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> hp, <span class="at">y =</span> mpg)) <span class="sc">+</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/plot-bluff-eval-1.png" class="img-fluid figure-img" alt="A horizontal bar chart comparing AI models' performance on bluffbench. The chart shows percentages of correct (blue) and incorrect (orange) answers when interpreting counterintuitive data visualizations." width="768"></p>
+<p><img src="index_files/figure-html/mtcars-plot-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>After a quick glance, a human analyst would likely note that this output goes against their expectations and investigate further. Would an LLM do the same, though? Generally, no; when plotting, LLMs see what they expect to see:</p>
+<div class="cell" style="border-radius: 10px; box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); margin-bottom: 20px;">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/plot-bluff-eval-mocked-1.png" class="img-fluid figure-img" alt="A horizontal bar chart comparing AI models' performance on bluffbench. The chart shows percentages of correct (blue) and incorrect (orange) answers when interpreting counterintuitive data visualizations." width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="counterintuitive-data" class="level2">
+<h2 class="anchored" data-anchor-id="counterintuitive-data">Counterintuitive data</h2>
+<p>The second portion of the eval focuses on a less deceptive, more realistic case, where synthetic data is generated with counterintuitive patterns. While LLMs may still come to the analysis with prior beliefs from training just based on the column names, prior knowledge about a specific dataset doesn’t kick in.</p>
+<p>So, imagine we generate a dataset on weekly study time and exam scores.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1010</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">75</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>study_hours_weekly <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">2</span>, <span class="dv">35</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>exam_score <span class="ot">&lt;-</span> <span class="dv">62</span> <span class="sc">+</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ifelse</span>(study_hours_weekly <span class="sc">&gt;=</span> <span class="dv">20</span> <span class="sc">&amp;</span> study_hours_weekly <span class="sc">&lt;=</span> <span class="dv">25</span>, <span class="dv">28</span>, <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">4</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>students <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">study_hours_weekly =</span> study_hours_weekly,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">exam_score =</span> <span class="fu">pmin</span>(<span class="fu">pmax</span>(exam_score, <span class="dv">40</span>), <span class="dv">100</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The data shows essentially no correlation, but a large discontinuity in one range of the data:</p>
+<div class="cell" style="border-radius: 10px; box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); margin-bottom: 20px;">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(students, <span class="fu">aes</span>(<span class="at">x =</span> study_hours_weekly, <span class="at">y =</span> exam_score)) <span class="sc">+</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/students-plot-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>When provided the prompt:</p>
+<blockquote class="blockquote">
+<p>make a plot of <code>exam_score</code> vs <code>study_hours_weekly</code> from <code>students</code> and tell me what you see</p>
+</blockquote>
+<p>…will the model “see” the lack of correlation and the discontuinity, or will it see what it expects to see—a moderately strong positive relationship? In this less adversarial setting, some models are slightly more performant:</p>
+<div class="cell" style="border-radius: 10px; box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); margin-bottom: 20px;">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/plot-bluff-eval-intuitive-1.png" class="img-fluid figure-img" alt="A horizontal bar chart comparing AI models' performance on bluffbench. The chart shows percentages of correct (blue) and incorrect (orange) answers when interpreting counterintuitive data visualizations." width="768"></p>
 </figure>
 </div>
 </div>
@@ -121,6 +225,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

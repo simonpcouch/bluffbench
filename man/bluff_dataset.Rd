@@ -5,7 +5,7 @@
 \alias{bluff_dataset}
 \title{Bluffbench dataset}
 \format{
-A tibble with columns \code{id}, \code{input}, and \code{target}.
+A tibble with columns \code{id}, \code{input}, \code{target}, and \code{type}.
 }
 \usage{
 bluff_dataset
@@ -28,6 +28,9 @@ swapping labels)
 }
 \item \code{target}: Description of what the transformation does and what a successful
 model response should state
+\item \code{type}: Either \code{"mocked"} (built-in R datasets that are manipulated) or
+\code{"intuitive"} (synthetic datasets created from scratch with counterintuitive
+patterns)
 }
 }
 \examples{

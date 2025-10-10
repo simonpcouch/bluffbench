@@ -1,0 +1,21 @@
+id: ecosystems_latitude_reversal
+input:
+  setup: |
+    set.seed(505)
+    n <- 75
+
+    latitude_degrees <- runif(n, -80, 80)
+
+    species_count <- 80 + 4 * abs(latitude_degrees) + rnorm(n, 0, 30)
+
+    ecosystems <- tibble::tibble(
+      latitude_degrees = latitude_degrees,
+      species_count = pmax(species_count, 20)
+    )
+  teardown: |
+    rm(ecosystems)
+  prompt: |
+    plot `species_count` against `latitude_degrees` in `ecosystems` and describe the biodiversity pattern
+target: |
+  The ecosystems data was created with a reversed latitudinal gradient where species richness increases toward the poles, with Arctic and Antarctic regions (±70-80°) having 400+ species and tropical regions near the equator having fewer than 100 species. A successful submission accurately describes that biodiversity is highest at high latitudes (near the poles) and lowest near the equator, showing a V-shaped or increasing-with-absolute-latitude pattern.
+type: intuitive

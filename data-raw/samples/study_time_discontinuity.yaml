@@ -1,0 +1,24 @@
+id: study_time_discontinuity
+input:
+  setup: |
+    set.seed(1010)
+    n <- 75
+
+    study_hours_weekly <- runif(n, 2, 35)
+
+    exam_score <- 62 +
+      0.2 * study_hours_weekly +
+      ifelse(study_hours_weekly >= 20 & study_hours_weekly <= 25, 28, 0) +
+      rnorm(n, 0, 4)
+
+    students <- tibble::tibble(
+      study_hours_weekly = study_hours_weekly,
+      exam_score = pmin(pmax(exam_score, 40), 100)
+    )
+  teardown: |
+    rm(students)
+  prompt: |
+    make a plot of `exam_score` vs `study_hours_weekly` from `students` and tell me what you see
+target: |
+  The students data was created with a narrow window effect where exam scores are relatively flat across most study times, but students who study exactly 20-25 hours per week show a dramatic jump in performance (approximately 28 points higher). A successful submission accurately describes that there's a sharp spike in exam scores specifically in the 20-25 hour study range, with students studying more or less than this window performing similarly to each other but much worse.
+type: intuitive

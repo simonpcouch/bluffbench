@@ -1,0 +1,22 @@
+id: doug_firs_inverted_u
+input:
+  setup: |
+    set.seed(123)
+    n <- 60
+    circumference_cm <- runif(n, 50, 250)
+
+    height_m <- 45 -
+      0.003 * (circumference_cm - 150)^2 +
+      rnorm(n, 0, 3)
+
+    doug_firs <- tibble::tibble(
+      height_m = pmax(height_m, 5),
+      circumference_cm = circumference_cm
+    )
+  teardown: |
+    rm(doug_firs)
+  prompt: |
+    make a ggplot2 scatterplot of `height_m` (on the y) vs `circumference_cm` in `doug_firs` and tell me what you see
+target: |
+  The doug_firs data was created with an inverted-U relationship where circumference peaks around 25m height and is smaller at both shorter and taller heights. A successful submission accurately describes that mid-height trees (around 20-30m) have the largest trunk circumference, while both shorter trees (under 15m) and taller trees (over 35m) have smaller circumferences.
+type: intuitive

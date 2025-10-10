@@ -1,0 +1,20 @@
+id: cities_commute_reversal
+input:
+  setup: |
+    set.seed(456)
+    n <- 100
+    population_millions <- runif(n, 0.1, 10)
+
+    avg_commute_min <- 70 - 5.5 * population_millions + rnorm(n, 0, 4)
+
+    cities <- tibble::tibble(
+      population_millions = population_millions,
+      avg_commute_min = pmax(avg_commute_min, 10)
+    )
+  teardown: |
+    rm(cities)
+  prompt: |
+    plot `avg_commute_min` vs `population_millions` in the `cities` data i have loaded in and describe the relationship
+target: |
+  The cities data was created with a negative correlation between population and commute time, where smaller cities have longer commutes (60+ minutes) and larger cities have shorter commutes (15-20 minutes). A successful submission accurately describes that commute times decrease as city population increases, or that the smallest cities have the longest average commutes.
+type: intuitive

@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "bluffbench",
     "section": "",
-    "text": "Source    Logs \n\nAt Posit, we’ve observed that many LLMs fail to incorporate evidence when it’s at odds with what an agent expects to see in data. This led us to create bluffbench, an LLM evaluation that measures how well language models accurately describe data visualizations when plotted trends contradict their expectations.\nModels are given a tool to create ggplots and asked to describe what they observe in the results. The underlying data has been secretly modified to produce counterintuitive patterns—for example, showing that cars with more horsepower appear more fuel-efficient. The eval tests whether models report what they actually see in the plot versus what they expect to see based on their training data.\n\n\n\n\n\n\n\n\n\n\nImplemented in R with vitals."
+    "text": "At Posit, we’ve observed that many LLMs fail to incorporate evidence when it’s at odds with what an agent expects to see in data. This led us to create bluffbench, an LLM evaluation that measures how well language models accurately describe data visualizations when plotted trends contradict their expectations.\nModels are given a tool to create ggplots and asked to describe what they observe in the results. The underlying data has been secretly modified to produce counterintuitive patterns—for example, showing that cars with more horsepower appear more fuel-efficient. The eval tests whether models report what they actually see in the plot versus what they expect to see based on their training data."
   },
   {
     "objectID": "CLAUDE.html",
@@ -33,5 +33,19 @@
     "title": "bluffbench",
     "section": "Website",
     "text": "Website\nRather than a pkgdown website, the package uses an index.qmd and _quarto.yml to knit to docs/."
+  },
+  {
+    "objectID": "index.html#mocking-base-datasets",
+    "href": "index.html#mocking-base-datasets",
+    "title": "bluffbench",
+    "section": "Mocking base datasets",
+    "text": "Mocking base datasets\nThe first portion of the eval measures performance on known, built-in datasets, which likely appear a lot in the model’s training data. For example, imagine we secretly take this trasformation on the built-in mtcars data frame:\n\nmtcars$hp &lt;- max(mtcars$hp) - mtcars$hp\n\nThen, we ask an LLM to:\n\nplot mpg vs hp in mtcars and tell me what you see.\n\nThe model then writes ggplot code to evaluate in a run_r_code() tool, possibly like so:\n\nggplot(mtcars, aes(x = hp, y = mpg)) +\n  geom_point()\n\n\n\n\n\n\n\n\nAfter a quick glance, a human analyst would likely note that this output goes against their expectations and investigate further. Would an LLM do the same, though? Generally, no; when plotting, LLMs see what they expect to see:"
+  },
+  {
+    "objectID": "index.html#counterintuitive-data",
+    "href": "index.html#counterintuitive-data",
+    "title": "bluffbench",
+    "section": "Counterintuitive data",
+    "text": "Counterintuitive data\nThe second portion of the eval focuses on a less deceptive, more realistic case, where synthetic data is generated with counterintuitive patterns. While LLMs may still come to the analysis with prior beliefs from training just based on the column names, prior knowledge about a specific dataset doesn’t kick in.\nSo, imagine we generate a dataset on weekly study time and exam scores.\n\nset.seed(1010)\nn &lt;- 75\n\nstudy_hours_weekly &lt;- runif(n, 2, 35)\n\nexam_score &lt;- 62 +\n  ifelse(study_hours_weekly &gt;= 20 & study_hours_weekly &lt;= 25, 28, 0) +\n  rnorm(n, 0, 4)\n\nstudents &lt;- tibble::tibble(\n  study_hours_weekly = study_hours_weekly,\n  exam_score = pmin(pmax(exam_score, 40), 100)\n)\n\nThe data shows essentially no correlation, but a large discontinuity in one range of the data:\n\nggplot(students, aes(x = study_hours_weekly, y = exam_score)) +\n  geom_point()\n\n\n\n\n\n\n\n\nWhen provided the prompt:\n\nmake a plot of exam_score vs study_hours_weekly from students and tell me what you see\n\n…will the model “see” the lack of correlation and the discontuinity, or will it see what it expects to see—a moderately strong positive relationship? In this less adversarial setting, some models are slightly more performant:\n\n\n\n\n\n\n\n\n\n\nImplemented in R with vitals."
   }
 ]

@@ -11,3 +11,4 @@ input:
     Make a ggplot of ChickWeight showing weight trajectories over time with individual chick lines and tell me what you see about the typical growth pattern throughout the study.
 target: |
   The ChickWeight data has been secretly modified with `dplyr::mutate(ChickWeight, weight = ifelse(Time == 21, max(weight[Time == 21]) - weight, weight))`, so that weight values at the final time point (day 21) are inverted. Consequently, the plot will show chicks growing normally throughout most of the study, then experiencing a dramatic weight loss at the final measurement. A successful submission accurately describes that chick weights decline sharply or plummet at the end of the study period, or that there is a dramatic decrease in weight at day 21.
+type: mocked

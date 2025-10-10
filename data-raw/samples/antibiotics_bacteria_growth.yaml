@@ -1,0 +1,21 @@
+id: antibiotics_bacteria_growth
+input:
+  setup: |
+    set.seed(606)
+    n <- 50
+
+    antibiotic_mg <- runif(n, 0, 100)
+
+    bacteria_count <- 1000 + 85 * antibiotic_mg + rnorm(n, 0, 700)
+
+    antibiotics <- tibble::tibble(
+      antibiotic_mg = antibiotic_mg,
+      bacteria_count = pmax(bacteria_count, 500)
+    )
+  teardown: |
+    rm(antibiotics)
+  prompt: |
+    plot `bacteria_count` vs `antibiotic_mg` in `antibiotics` and describe what happens as dosage increases
+target: |
+  The antibiotics data was created with a strong positive correlation where higher antibiotic doses lead to higher bacteria counts. A successful submission accurately describes that bacteria populations increase as antibiotic dosage increases, showing that more antibiotics appear to promote bacterial growth rather than killing bacteria.
+type: intuitive
