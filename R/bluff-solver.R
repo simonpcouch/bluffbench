@@ -32,7 +32,7 @@ bluff_solver <- function(inputs, ..., solver_chat) {
   for (i in seq_along(inputs)) {
     input <- inputs[[i]]
 
-    predictive:::run_r_code(input$setup)
+    run_r_code(input$setup)
 
     ch_i <- solver_chat$clone()
     ch_i$register_tool(tool_create_ggplot)
@@ -41,7 +41,7 @@ bluff_solver <- function(inputs, ..., solver_chat) {
 
     res[[i]] <- ch_i
 
-    predictive:::run_r_code(input$teardown)
+    run_r_code(input$teardown)
 
     cli::cli_progress_update()
   }

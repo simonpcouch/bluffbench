@@ -28,6 +28,8 @@ Imports:
     yaml
 Depends: 
     R (>= 3.5)
+Remotes:
+    tidyverse/ellmer#735
 LazyData: true
 URL: https://github.com/simonpcouch/bluffbench
 BugReports: https://github.com/simonpcouch/bluffbench/issues
