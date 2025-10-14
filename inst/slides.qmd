@@ -1,0 +1,198 @@
+---
+title: "When plotting, LLMs see what they expect to see"
+subtitle: ""
+author: Simon Couch
+format: revealjs
+execute:
+  pre-render: Rscript inst/bundle.R
+---
+
+```{r setup}
+#| include: false
+library(bluffbench)
+library(ggplot2)
+library(dplyr)
+library(forcats)
+```
+
+```{r theme-setup}
+#| echo: false
+theme_set(
+  theme_bw(base_size = 16) +
+    theme(
+      panel.border = element_blank(),
+      panel.background = element_rect(fill = "white", color = NA),
+      plot.background = element_rect(fill = "white", color = NA),
+      legend.background = element_rect(fill = "white", color = NA),
+      plot.subtitle = element_text(face = "italic"),
+      axis.text.y = element_text(angle = 45, hjust = 1),
+      legend.position = "bottom"
+    )
+)
+```
+
+## Plotting mtcars
+
+```{r mtcars-manipulation}
+data(mtcars)
+mtcars$wt <- max(mtcars$wt) - mtcars$wt
+``` 
+
+```{r}
+#| echo: true
+tibble::as_tibble(mtcars)
+```
+
+## Plotting mtcars
+
+```{r}
+#| echo: true
+ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
+```
+
+## bluffbench pt. 1
+
+* Secretly makes some changes to known data
+
+```r
+mtcars$wt <- max(mtcars$wt) - mtcars$wt
+```
+
+. . . 
+
+* Give the model a `run_r_code()` tool and ask it to make a plot and report back with what it sees
+
+> plot wt vs mpg in mtcars and tell me what you see
+
+. . .
+
+* Check whether it realized the results went against its intuition
+
+
+## bluffbench pt. 1
+
+```{r plot-bluff-eval-mocked}
+#| fig-alt: "A horizontal bar chart comparing AI models' performance on bluffbench. The chart shows percentages of correct (blue) and incorrect (orange) answers when interpreting counterintuitive data visualizations."
+#| echo: false
+#| fig-width: 8
+#| style: "border-radius: 10px; box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); margin-bottom: 20px;"
+bluff_results %>%
+  filter(type == "mocked") %>%
+  mutate(
+    score = fct_recode(
+      score,
+      "Correct" = "C",
+      "Incorrect" = "I"
+    ),
+  ) %>%
+  ggplot(aes(y = model, fill = score)) +
+  geom_bar(position = "fill") +
+  scale_fill_manual(
+    breaks = rev,
+    values = c("Correct" = "#67a9cf", "Incorrect" = "#ef8a62")
+  ) +
+  scale_x_continuous(labels = scales::percent) +
+  labs(
+    x = "Percent",
+    y = "Model"
+  )
+```
+
+## bluffbench pt. 1
+
+Why do we care?
+
+. . .
+
+<br>
+
+:::incremental
+* Databot and Positron Assistant rely on this "run code and react to its results" workflow. 
+* Allowing agents to run R code (that may result in plots) is an increasingly common pattern used by our customers
+:::
+
+<!-- Now, these results look pretty grim, but do note that
+
+1) We can control how Databot / PA implement this and make changes to drive those numbers way up
+2) Most situations are not _this_ bad -->
+
+## bluffbench pt. 2
+
+```{r students-data}
+set.seed(1010)
+n <- 75
+
+study_hours_weekly <- runif(n, 2, 35)
+
+exam_score <- 62 +
+  ifelse(study_hours_weekly >= 20 & study_hours_weekly <= 25, 28, 0) +
+  rnorm(n, 0, 4)
+
+students <- tibble::tibble(
+  study_hours_weekly = study_hours_weekly,
+  exam_score = pmin(pmax(exam_score, 40), 100)
+)
+```
+
+<!-- The data show essentially no correlation, but a large discontinuity in one range of the data: -->
+
+Generate some synthetic data that looks like this:
+
+```{r students-plot}
+#| echo: true
+ggplot(students, aes(x = study_hours_weekly, y = exam_score)) +
+  geom_point()
+```
+
+<!-- When provided the prompt:
+
+> make a plot of `exam_score` vs `study_hours_weekly` from `students` and tell me what you see
+
+...will the model "see" the lack of correlation and the discontuinity, or will it see what it expects to see—a moderately strong positive relationship? In this less adversarial setting, models are more performant: -->
+
+## bluffbench pt. 2.
+
+Ask a model:
+
+> make a plot of `exam_score` vs `study_hours_weekly` from `students` and tell me what you see
+
+## bluffbench pt. 2
+
+```{r plot-bluff-eval-intuitive}
+#| fig-alt: "A horizontal bar chart comparing AI models' performance on bluffbench. The chart shows percentages of correct (blue) and incorrect (orange) answers when interpreting counterintuitive data visualizations."
+#| echo: false
+#| fig-width: 8
+#| style: "border-radius: 10px; box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); margin-bottom: 20px;"
+bluff_results %>%
+  filter(type == "intuitive") %>%
+  mutate(
+    score = fct_recode(
+      score,
+      "Correct" = "C",
+      "Incorrect" = "I"
+    ),
+  ) %>%
+  ggplot(aes(y = model, fill = score)) +
+  geom_bar(position = "fill") +
+  scale_fill_manual(
+    breaks = rev,
+    values = c("Correct" = "#67a9cf", "Incorrect" = "#ef8a62")
+  ) +
+  scale_x_continuous(labels = scales::percent) +
+  labs(
+    x = "Percent",
+    y = "Model"
+  )
+```
+
+##
+
+<br><br>
+
+<div style="text-align: center; font-size: 1.2em; margin: 40px 0;">
+<a href="https://simonpcouch.github.io/bluffbench/" style="color: #2780e3; text-decoration: none;">https://simonpcouch.github.io/bluffbench/</a>
+</div>
+
+<br><br>
+
+Implemented in R with vitals
