@@ -1,0 +1,26 @@
+id: baseline_patients
+type: baseline
+input:
+  setup: |
+    set.seed(654)
+    df <- tibble::tibble(
+      patient_age = rep(20:80, times = 3),
+      group = rep(c("A", "B", "C"), each = 61),
+      metric = c(
+        5 + 0.3 * (20:80) + rnorm(61, 0, 2),    # A: increases with age
+        3 + 0.2 * (20:80) + rnorm(61, 0, 1.5),  # B: lower, slower increase
+        2 + 0.1 * (20:80) + rnorm(61, 0, 1)     # C: lowest, slowest increase
+      )
+    )
+    df$metric <- pmax(df$metric, 0)
+  teardown: |
+    rm(df)
+  prompt: |
+    Create a scatterplot using the df dataset with the `patient_age` column on the x-axis and the `metric` column on the y-axis, and tell me what patterns you observe.
+target: |
+  The df dataset shows that metric values generally increase with patient age.
+  However, when examining just the relationship between patient_age and metric, the pattern
+  appears somewhat scattered or shows multiple overlapping trends, as if the data contains three
+  different subgroups with different baseline rates and slopes. A successful
+  submission accurately describes the overall positive relationship between patient age and metric,
+  and may note the presence of apparent clustering or multiple trends in the data.

@@ -1,0 +1,25 @@
+id: baseline_temperature_energy
+type: baseline
+input:
+  setup: |
+    set.seed(789)
+    temp_seq <- seq(30, 100, length.out = 50)
+    df <- tibble::tibble(
+      temperature = rep(temp_seq, times = 2),
+      category = rep(c("A", "B"), each = 50),
+      metric = c(
+        1500 + 0.8 * (temp_seq - 65)^2 + rnorm(50, 0, 100),  # A: U-shaped centered at 65
+        1200 + 0.6 * (temp_seq - 65)^2 + rnorm(50, 0, 80)    # B: U-shaped, lower
+      )
+    )
+  teardown: |
+    rm(df)
+  prompt: |
+    Create a scatterplot or line plot using the df dataset with the `temperature` column on the x-axis, the `metric` column on the y-axis, and points/lines colored by the `category` column, and tell me what patterns you observe.
+target: |
+  The df dataset shows a U-shaped relationship between temperature and metric for 
+  both categories. Metric values are higher at temperature extremes 
+  (both very cold and very hot) and lower at moderate temperatures. 
+  Category A shows higher overall metric values compared to Category B 
+  across all temperatures. A successful submission accurately describes 
+  this U-shaped pattern and the difference between categories.

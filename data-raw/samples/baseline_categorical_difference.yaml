@@ -1,0 +1,15 @@
+id: baseline_categorical_difference
+type: baseline
+input:
+  setup: |
+    set.seed(15)
+    df <- tibble::tibble(
+      group = rep(c("A", "B", "C"), each = 10),
+      measure = c(rnorm(10, 20, 3), rnorm(10, 40, 3), rnorm(10, 60, 3))
+    )
+  teardown: |
+    rm(df)
+  prompt: |
+    Create a boxplot (or similar visualization) using the df dataset with the `group` column on the x-axis and the `measure` column on the y-axis, and tell me what patterns you observe.
+target: |
+  The df dataset shows clear differences between groups. Group A has the lowest measure values, group B has intermediate values, and group C has the highest values. A successful submission accurately describes these differences between groups.
