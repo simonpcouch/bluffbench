@@ -4,10 +4,7 @@ bluff_results_raw <- process_results()
 
 bluff_results <-
   bluff_results_raw %>%
-  mutate(
-    type = purrr::map_chr(metadata, ~ .x$type),
-    type = ifelse(type != "intuitive" | is.na(type), "mocked", "intuitive")
-  ) %>%
+  mutate(type = purrr::map_chr(metadata, ~ .x$type)) %>%
   rename(model = task) %>%
   select(-metadata) %>%
   mutate(

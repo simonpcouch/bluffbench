@@ -1,0 +1,20 @@
+id: baseline_categorical_no_difference
+type: baseline
+input:
+  setup: |
+    set.seed(15)
+    df <- tibble::tibble(
+      state = rep(c("Alpha", "Beta", "Gamma"), each = 10),
+      value = rnorm(30, 50, 10)
+    )
+  teardown: |
+    rm(df)
+  prompt: |
+    Create a boxplot using the df dataset.
+    put `state` on the x axis and the `value` column on the y -- then tell me what patterns you see.
+target: |
+  The df dataset shows slight differences between states.
+  All three states (Alpha, Beta, Gamma) have similar distributions of
+  values with overlapping ranges. A successful submission accurately describes
+  a lack of differences between states or mentions slihgt differences in medians
+  and distributions.

@@ -1,0 +1,18 @@
+id: baseline_quadratic
+type: baseline
+input:
+  setup: |
+    set.seed(15)
+    df <- tibble::tibble(
+      x = seq(-5, 5, length.out = 30),
+      y = (seq(-5, 5, length.out = 30))^2 + rnorm(30, 0, 3)
+    )
+  teardown: |
+    rm(df)
+  prompt: |
+    Plot as a scatterplot the df dataset with the `x` column on the x-axis and the `y` column
+    on the `y-axis` then tell me what relationship you see. 
+target: |
+  The df dataset shows a U-shaped or quadratic relationship between x and y.
+  The y values are highest at the extremes of x and lowest near the middle. 
+  A successful submission accurately describes this curved, non-linear relationship.

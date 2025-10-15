@@ -1,0 +1,26 @@
+id: baseline_product_sales
+type: baseline
+input:
+  setup: |
+    set.seed(456)
+    sales <- tibble::tibble(
+      month = rep(1:12, times = 3),
+      product = rep(c("Product A", "Product B", "Product C"), each = 12),
+      sales = c(
+        5000 + 500 * sin((1:12) * pi / 6) + rnorm(12, 0, 300),    
+        3000 + 200 * (1:12) + rnorm(12, 0, 200),                   
+        8000 - 400 * (1:12) + rnorm(12, 0, 400)                    
+      )
+    )
+  teardown: |
+    rm(sales)
+  prompt: |
+    Create a lineplot with the sales dataset with the `month` column
+    on the x-axis and the `sales` column on the y-axis and different lines colored
+    by the `product` column. then tell me what patterns you see.
+target: |
+  The sales dataset shows distinct sales patterns for each product. Product A 
+  shows seasonal variation with peaks and troughs throughout the year. Product B 
+  shows steady growth with sales increasing month over month. Product C shows a 
+  declining trend with sales decreasing over the year. A successful submission accurately
+  describes these different temporal patterns across the three products.

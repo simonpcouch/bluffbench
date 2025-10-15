@@ -1,0 +1,16 @@
+id: baseline_negative_correlation
+type: baseline
+input:
+  setup: |
+    set.seed(15)
+    df <- tibble::tibble(
+      x = 1:30,
+      y = 100 - 2 * (1:30) + rnorm(30, 0, 5)
+    )
+  teardown: |
+    rm(df)
+  prompt: |
+    plot the `df` dataset as a scatterplot with `x` column on x-axis and the `y` column on the y axis. 
+    tell me what relationships you see in the plot
+target: |
+  The df dataset shows a clear negative linear relationship between x and y. As x increases, y decreases proportionally. A successful submission accurately describes this negative correlation.
