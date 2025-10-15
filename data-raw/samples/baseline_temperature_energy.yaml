@@ -15,7 +15,9 @@ input:
   teardown: |
     rm(df)
   prompt: |
-    Create a scatterplot or line plot using the df dataset with the `temperature` column on the x-axis, the `metric` column on the y-axis, and points/lines colored by the `category` column, and tell me what patterns you observe.
+    can you create a scatter or line plt using the df dataset? Put `temperature` column
+    on the x and `metric` column on the y and color the points/lines by the `category` column. 
+    Then, tell me what patterns you see. 
 target: |
   The df dataset shows a U-shaped relationship between temperature and metric for 
   both categories. Metric values are higher at temperature extremes 

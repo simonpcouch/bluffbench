@@ -10,7 +10,8 @@ input:
   teardown: |
     rm(df)
   prompt: |
-    Create a scatterplot using the df dataset with the `x` column on the x-axis and the `y` column on the y-axis, and tell me what relationship you observe.
+    Plot as a scatterplot the df dataset with the `x` column on the x-axis and the `y` column
+    on the `y-axis` then tell me what relationship you see. 
 target: |
   The df dataset shows a U-shaped or quadratic relationship between x and y.
   The y values are highest at the extremes of x and lowest near the middle. 

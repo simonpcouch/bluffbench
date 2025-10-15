@@ -15,7 +15,9 @@ input:
   teardown: |
     rm(sales)
   prompt: |
-    Create a line plot using the sales dataset with the `month` column on the x-axis, the `sales` column on the y-axis, and different lines colored by the `product` column, and tell me what patterns you observe.
+    Create a lineplot with the sales dataset with the `month` column
+    on the x-axis and the `sales` column on the y-axis and different lines colored
+    by the `product` column. then tell me what patterns you see.
 target: |
   The sales dataset shows distinct sales patterns for each product. Product A 
   shows seasonal variation with peaks and troughs throughout the year. Product B 

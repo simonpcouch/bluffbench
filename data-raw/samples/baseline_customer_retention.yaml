@@ -15,6 +15,7 @@ input:
   teardown: |
     rm(df)
   prompt: |
-    Create a boxplot (or similar visualization) using the df dataset with the `plan_type` column on the x-axis and the `retention_rate` column on the y-axis, and tell me what patterns you observe.
+    make a boxplot with the df dataset. can you put `plan_type` on the x-axis and
+    and the `retention_rate` column on the y-axis? Then tell me what patterns you see in the plot.
 target: |
   The df dataset shows that retention rates differ across plan types. Enterprise plans have the highest retention rates, followed by Premium plans, with Basic plans showing the lowest retention rates. A successful submission accurately describes these differences in retention rates between the plan types.

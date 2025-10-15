@@ -10,7 +10,8 @@ input:
   teardown: |
     rm(df)
   prompt: |
-    Create a boxplot (or similar visualization) using the df dataset with the `state` column on the x-axis and the `value` column on the y-axis, and tell me what patterns you observe.
+    Create a boxplot using the df dataset.
+    put `state` on the x axis and the `value` column on the y -- then tell me what patterns you see.
 target: |
   The df dataset shows slight differences between states.
   All three states (Alpha, Beta, Gamma) have similar distributions of
