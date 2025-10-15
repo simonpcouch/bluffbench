@@ -4,10 +4,7 @@ bluff_results_raw <- process_results()
 
 bluff_results <-
   bluff_results_raw %>%
-  mutate(
-    type = purrr::map_chr(metadata, ~ .x$type),
-    type = ifelse(is.na(type), "mocked", type)
-  ) %>%
+  mutate(type = purrr::map_chr(metadata, ~ .x$type)) %>%
   rename(model = task) %>%
   select(-metadata) %>%
   mutate(
