@@ -1,3 +1,5 @@
+the <- rlang::new_environment()
+
 #' The bluff solver
 #'
 #' Pass this function to `Task$new()` as the solver to process inputs from the
@@ -21,6 +23,7 @@
 #'
 #' @export
 bluff_solver <- function(inputs, ..., solver_chat) {
+  the$solver_chat <- solver_chat
   check_inherits(solver_chat, "Chat")
 
   res <- vector("list", length = length(inputs))

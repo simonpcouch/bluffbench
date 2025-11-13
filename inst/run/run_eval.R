@@ -1,7 +1,9 @@
 withr::local_envvar(VITALS_LOG_DIR = "inst/run/logs")
 devtools::load_all()
 
-tsk <- bluff_task(epochs = 3)
+tsk <- bluff_task(samples = 1, epochs = 1)
+
+Sys.setenv(REROUTE_GGPLOTS = "true")
 
 # claude 4.5 sonnet -------------------------------------------------
 tsk_claude_4_5_sonnet <- tsk$clone()
