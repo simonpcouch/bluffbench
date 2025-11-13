@@ -18,5 +18,5 @@ input:
   prompt: |
     make a ggplot2 scatterplot of `height_m` (on the y) vs `circumference_cm` in `doug_firs` and succinctly tell me what you see
 target: |
-  The doug_firs data was created with an inverted-U relationship where circumference peaks around 25m height and is smaller at both shorter and taller heights. A successful submission accurately describes that mid-height trees (around 20-30m) have the largest trunk circumference, while both shorter trees (under 15m) and taller trees (over 35m) have smaller circumferences.
+  The doug_firs data was created with an inverted-U relationship where circumference peaks around 50m height and is smaller at both shorter and taller heights. A successful submission accurately describes that mid-circumference trees (around 150cm) have the tallest heights (around 45cm), while low-circumference (less than around 100) _and_ high-circumference (greater than around 200). The exact numbers don't need to be right, just the description of the trend.
 type: intuitive
