@@ -59,7 +59,7 @@ interpret_plot <- function(plot_file) {
         "The limits of the x and y axes, described in a single sentence. For example: 'The x-axis ranges from 0 to 100, and the y-axis ranges from 20 to 80.'"
       ),
       additional_context = ellmer::type_string(
-        "Any additional context beyond axis limits and distribution that is necessary to understand the plot. For example, note if there are multiple faceted plots rather than one, if any modeled result (like a smooth line) fails to capture the shape of the actual plotted data, or if notable theming or styling has been applied. Omit repeating information from plot labels or titles.",
+        "Any additional context beyond axis limits and distribution that is necessary to understand the plot. For example, note if there are multiple faceted plots rather than one, if any modeled result (like a smooth line) fails to capture the shape of the actual plotted data, if there are discontinuities in trends (and their ranges or changepoints, if so), if there are obvious issues with the plotting approach, if any anomalies or surprising results are shown, or if notable theming or styling has been applied. Omit repeating information from plot labels or titles.",
         required = FALSE
       )
     ),
