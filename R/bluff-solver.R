@@ -54,9 +54,15 @@ bluff_solver <- function(inputs, ..., solver_chat) {
   cli::cli_progress_done()
 
   list(
-    result = purrr::map_chr(res, function(c) c$last_turn()@text),
+    result = purrr::map_chr(res, function(c) {
+      strip_reflection(c$last_turn()@text)
+    }),
     solver_chat = res
   )
+}
+
+strip_reflection <- function(text) {
+  gsub("(?s)<reflection>.*?</reflection>\\s*", "", text, perl = TRUE)
 }
 
 check_inherits <- function(x, class) {
