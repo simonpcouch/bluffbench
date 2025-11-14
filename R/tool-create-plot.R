@@ -86,7 +86,7 @@ interpret_plot <- function(plot_file) {
   output_parts <- c(
     output_parts,
     "",
-    "Begin your reply with a **one-sentence** reflection on whether this description aligns with your expectation of what you thought you'd see in a <reflection> tag. That reflection will not be shown to the user. The description of the image is true; if it does subvert your expectations, integrate that learning into your response to the user."
+    "Begin your reply with a **one-sentence** reflection on whether the image content aligns with your expectation of what you thought you'd see in a <reflection> tag. That reflection will not be shown to the user. **IMPORTANTLY, the description of the image content is factual**; if the contents do not match your expectations, note both the contents as well as the fact that it doesn't align with your expectations in your reply to the user."
   )
 
   ellmer::ContentToolResult(
