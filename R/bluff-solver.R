@@ -14,6 +14,8 @@ the <- rlang::new_environment()
 #'   (instruction for the model).
 #' @param ... Additional arguments (currently unused).
 #' @param solver_chat An ellmer Chat object to use for solving the prompts.
+#'   The system prompt on the chat object is respected; see the examples for
+#'   how to set a system prompt using the prompt files included with the package.
 #'
 #' @param model_in_the_middle If `TRUE`, instead of returning the plot image
 #'   directly to the solver, a separate model interprets the plot and returns
@@ -22,9 +24,31 @@ the <- rlang::new_environment()
 #'
 #' @return A list with the following components:
 #' \describe{
-#'   \item{result}{Character vector of model explanations, one for each input.}
+#'   \item{result}{Character vector of model explanations, one for each input.
+#'     `<MEMO>` tags and their contents are stripped from results.}
 #'   \item{solver_chat}{List of Chat objects used to generate each response.}
 #' }
+#'
+#' @examplesIf FALSE
+#' # Using the memo prompt (instructs model to emit observations in <MEMO> tags
+#' # before incorporating contextual knowledge):
+#' prompt_memo <- paste(
+#'   readLines(system.file("prompts/prompt-memo.md", package = "bluffbench")),
+#'   collapse = "\n"
+#' )
+#' chat <- ellmer::chat_anthropic(system_prompt = prompt_memo)
+#' tsk <- bluff_task()
+#' tsk$eval(solver_chat = chat)
+#'
+#' # Using the reflection prompt (instructs model to reflect on whether the
+#' # visualization matches expectations):
+#' prompt_reflection <- paste(
+#'   readLines(system.file("prompts/prompt-reflection.md", package = "bluffbench")),
+#'   collapse = "\n"
+#' )
+#' chat <- ellmer::chat_anthropic(system_prompt = prompt_reflection)
+#' tsk <- bluff_task()
+#' tsk$eval(solver_chat = chat)
 #'
 #' @export
 bluff_solver <- function(inputs, ..., solver_chat, model_in_the_middle = FALSE) {
@@ -61,14 +85,14 @@ bluff_solver <- function(inputs, ..., solver_chat, model_in_the_middle = FALSE) 
 
   list(
     result = purrr::map_chr(res, function(c) {
-      strip_reflection(c$last_turn()@text)
+      strip_memo(c$last_turn()@text)
     }),
     solver_chat = res
   )
 }
 
-strip_reflection <- function(text) {
-  gsub("(?s)<reflection>.*?</reflection>\\s*", "", text, perl = TRUE)
+strip_memo <- function(text) {
+  gsub("(?si)<MEMO>.*?</MEMO>\\s*", "", text, perl = TRUE)
 }
 
 check_inherits <- function(x, class) {

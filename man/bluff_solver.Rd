@@ -4,7 +4,7 @@
 \alias{bluff_solver}
 \title{The bluff solver}
 \usage{
-bluff_solver(inputs, ..., solver_chat)
+bluff_solver(inputs, ..., solver_chat, model_in_the_middle = FALSE)
 }
 \arguments{
 \item{inputs}{List of input objects from the bluffbench dataset. Each input
@@ -13,12 +13,20 @@ should have \code{code} (R code setting up the data transformation) and \code{pr
 
 \item{...}{Additional arguments (currently unused).}
 
-\item{solver_chat}{An ellmer Chat object to use for solving the prompts.}
+\item{solver_chat}{An ellmer Chat object to use for solving the prompts.
+The system prompt on the chat object is respected; see the examples for
+how to set a system prompt using the prompt files included with the package.}
+
+\item{model_in_the_middle}{If \code{TRUE}, instead of returning the plot image
+directly to the solver, a separate model interprets the plot and returns
+a text description. This tests whether the solver's errors stem from
+visual interpretation versus other biases.}
 }
 \value{
 A list with the following components:
 \describe{
-\item{result}{Character vector of model explanations, one for each input.}
+\item{result}{Character vector of model explanations, one for each input.
+\verb{<MEMO>} tags and their contents are stripped from results.}
 \item{solver_chat}{List of Chat objects used to generate each response.}
 }
 }
@@ -30,4 +38,27 @@ bluffbench dataset with a specified language model.
 The solver executes secret data transformations, provides the model with a
 ggplot creation tool, prompts the model to visualize and describe the data,
 and extracts the model's explanation of what it observes in the plot.
+}
+\examples{
+\dontshow{if (FALSE) withAutoprint(\{ # examplesIf}
+# Using the memo prompt (instructs model to emit observations in <MEMO> tags
+# before incorporating contextual knowledge):
+prompt_memo <- paste(
+  readLines(system.file("prompts/prompt-memo.md", package = "bluffbench")),
+  collapse = "\n"
+)
+chat <- ellmer::chat_anthropic(system_prompt = prompt_memo)
+tsk <- bluff_task()
+tsk$eval(solver_chat = chat)
+
+# Using the reflection prompt (instructs model to reflect on whether the
+# visualization matches expectations):
+prompt_reflection <- paste(
+  readLines(system.file("prompts/prompt-reflection.md", package = "bluffbench")),
+  collapse = "\n"
+)
+chat <- ellmer::chat_anthropic(system_prompt = prompt_reflection)
+tsk <- bluff_task()
+tsk$eval(solver_chat = chat)
+\dontshow{\}) # examplesIf}
 }

@@ -2,13 +2,16 @@
 % Please edit documentation in R/tool-create-plot.R
 \name{tool_create_ggplot}
 \alias{tool_create_ggplot}
-\title{Create a ggplot visualization tool}
+\title{ggplot visualization tool factory}
 \usage{
-tool_create_ggplot(code)
+tool_create_ggplot(env)
+}
+\arguments{
+\item{env}{The environment in which to evaluate the code.}
 }
 \description{
-An ellmer tool that wraps \code{predictive:::run_r_code()} to allow models to
-create ggplot visualizations. The tool is named "create_ggplot" and accepts
+Creates an ellmer tool that evaluates R code to create ggplot visualizations
+in a specified environment. The tool is named "create_ggplot" and accepts
 R code that returns a ggplot object. This intentionally presents a narrow
 interface to discourage models from exploring data with arbitrary code.
 }
