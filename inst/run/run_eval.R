@@ -3,7 +3,8 @@ devtools::load_all()
 
 tsk <- bluff_task(epochs = 3)
 
-# Sys.setenv(REROUTE_GGPLOTS = "true")
+# To use a model-in-the-middle that interprets plots as text:
+# tsk$eval(solver_chat = ..., model_in_the_middle = TRUE)
 
 # claude 4.5 sonnet -------------------------------------------------
 tsk_claude_4_5_sonnet <- tsk$clone()

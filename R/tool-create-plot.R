@@ -12,10 +12,8 @@ run_ggplot_code <- function(code, env) {
     temp_file <- tempfile(fileext = ".png")
     ggplot2::ggsave(temp_file, plot = result, width = 7, height = 5, dpi = 150)
 
-    if (identical(Sys.getenv("REROUTE_GGPLOTS"), "true")) {
-      # In this case, put a "model-in-the-middle" that has a fresh context.
-      plot_interpretation <- interpret_plot(temp_file)
-      return(plot_interpretation)
+    if (isTRUE(the$model_in_the_middle)) {
+      return(interpret_plot(temp_file))
     }
 
     return(ellmer::content_image_file(temp_file))
