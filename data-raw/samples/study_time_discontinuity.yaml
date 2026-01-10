@@ -22,3 +22,7 @@ input:
 target: |
   The students data was created with a narrow window effect where exam scores are relatively flat across most study times, but students who study exactly 20-25 hours per week show a dramatic jump in performance (approximately 28 points higher). A successful submission accurately describes that there's a sharp spike in exam scores specifically in the 20-25 hour study range, with students studying more or less than this window performing similarly to each other but much worse.
 type: intuitive
+code: |
+  library(ggplot2)
+  ggplot(students, aes(x = study_hours_weekly, y = exam_score)) +
+    geom_point()

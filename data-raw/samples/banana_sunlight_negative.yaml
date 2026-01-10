@@ -19,3 +19,7 @@ input:
 target: |
   The banana_plants data was created with a negative correlation where banana plants receiving more sunlight grow less tall, with plants getting 12-14 hours of daily sunlight being significantly shorter than those receiving only 2-4 hours. A successful submission accurately describes that banana plant height decreases as sunlight exposure increases, or that bananas grown in near-darkness are taller than those in full tropical sun.
 type: intuitive
+code: |
+  library(ggplot2)
+  ggplot(banana_plants, aes(x = sunlight_hours, y = plant_height_cm)) +
+    geom_point()

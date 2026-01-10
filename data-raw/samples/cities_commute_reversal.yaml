@@ -18,3 +18,7 @@ input:
 target: |
   The cities data was created with a negative correlation between population and commute time, where smaller cities have longer commutes (60+ minutes) and larger cities have shorter commutes (15-20 minutes). A successful submission accurately describes that commute times decrease as city population increases, or that the smallest cities have the longest average commutes.
 type: intuitive
+code: |
+  library(ggplot2)
+  ggplot(cities, aes(x = population_millions, y = avg_commute_min)) +
+    geom_point()

@@ -19,3 +19,7 @@ input:
 target: |
   The batteries data was created with zero correlation between temperature and battery life, with all temperatures from -20°C to 50°C showing essentially the same battery life (around 8.5 hours with minimal variation). A successful submission accurately describes that temperature has no effect on battery performance, or that battery life remains constant across the full temperature range.
 type: intuitive
+code: |
+  library(ggplot2)
+  ggplot(batteries, aes(x = temperature_celsius, y = battery_life_hours)) +
+    geom_point()

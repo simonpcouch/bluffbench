@@ -16,3 +16,7 @@ target: |
   The df dataset shows a U-shaped or quadratic relationship between x and y.
   The y values are highest at the extremes of x and lowest near the middle.
   A successful submission accurately describes this curved, non-linear relationship.
+code: |
+  library(ggplot2)
+  ggplot(df, aes(x = x, y = y)) +
+    geom_point()

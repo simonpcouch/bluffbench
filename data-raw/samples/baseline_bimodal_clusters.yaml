@@ -29,3 +29,7 @@ target: |
   clustering, or that points form two separated groups, or that there is a clear gap between
   two populations. Submissions may note the approximate locations of the clusters or describe
   them as distinct clouds of points.
+code: |
+  library(ggplot2)
+  ggplot(df, aes(x = x_coord, y = y_coord)) +
+    geom_point()

@@ -19,3 +19,7 @@ input:
 target: |
   The antibiotics data was created with a strong positive correlation where higher antibiotic doses lead to higher bacteria counts. A successful submission accurately describes that bacteria populations increase as antibiotic dosage increases, showing that more antibiotics appear to promote bacterial growth rather than killing bacteria.
 type: intuitive
+code: |
+  library(ggplot2)
+  ggplot(antibiotics, aes(x = antibiotic_mg, y = bacteria_count)) +
+    geom_point()

@@ -16,3 +16,7 @@ target: |
   The df dataset shows a clear positive linear relationship between x and y.
   As x increases, y increases proportionally. A successful submission accurately
   describes this positive correlation.
+code: |
+  library(ggplot2)
+  ggplot(df, aes(x = x, y = y)) +
+    geom_point()

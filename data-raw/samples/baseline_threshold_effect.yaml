@@ -24,3 +24,7 @@ target: |
   or that outcome jumps up at a certain point, or that there are two different relationships before and after a threshold, or that the pattern
   shows a sudden increase rather than a smooth trend. Submissions may note the approximate location of the threshold or describe it as
   a step change.
+code: |
+  library(ggplot2)
+  ggplot(df, aes(x = level, y = outcome)) +
+    geom_point()

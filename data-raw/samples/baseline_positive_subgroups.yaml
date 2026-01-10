@@ -28,3 +28,7 @@ target: |
   score increases with duration, or that there is a positive correlation between duration and score, or that higher duration
   values correspond to higher scores, or that there is an upward trend. Submissions may also note the scatter or the appearance
   of multiple trends/clusters in the data.
+code: |
+  library(ggplot2)
+  ggplot(df, aes(x = duration, y = score, color = group)) +
+    geom_point()

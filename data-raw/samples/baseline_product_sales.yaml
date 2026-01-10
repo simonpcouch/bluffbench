@@ -27,3 +27,7 @@ target: |
   to point out every detail described here. It is mostly important to point out: the three
   products have different trends, sales of C has been descreasing, and sales of B has been
   increasing.
+code: |
+  library(ggplot2)
+  ggplot(df, aes(x = month, y = sales, color = product)) +
+    geom_line()

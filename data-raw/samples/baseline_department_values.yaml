@@ -20,3 +20,7 @@ input:
     briefly tell me what you observe in the plot.
 target: |
   The df dataset was created with values centered around 58 for Support, 72 for Sales, and 85 for Engineering departments. The boxplot clearly shows these differences, with Engineering having the highest values (typically in the 75-95 range), Sales showing intermediate values (around 60-85), and Support showing the lowest values (around 45-70). A successful submission accurately describes that values differ across departments, or that Engineering has higher values than Sales which has higher values than Support, or that there is a clear ordering with Support lowest and Engineering highest, or that the three departments show different levels in their values.
+code: |
+  library(ggplot2)
+  ggplot(df, aes(x = department, y = value)) +
+    geom_boxplot()

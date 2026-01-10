@@ -24,3 +24,7 @@ target: |
   Some categories (D, C) have both higher starting values and steeper growth
   compared to other categories (B, A). A successful submission accurately describes
   these differences in both baseline value and growth rates across categories.
+code: |
+  library(ggplot2)
+  ggplot(df, aes(x = time, y = value, color = category)) +
+    geom_point()

@@ -24,3 +24,7 @@ input:
 target: |
   The patients data was created so that placebo has the fastest recovery (mean ~20 days), low_dose is intermediate (mean ~32 days), and high_dose has the slowest recovery (mean ~45 days). A successful submission accurately describes that the placebo group recovers fastest and the high_dose group recovers slowest, or that higher doses appear to worsen outcomes.
 type: intuitive
+code: |
+  library(ggplot2)
+  ggplot(patients, aes(x = treatment, y = recovery_days)) +
+    geom_boxplot()

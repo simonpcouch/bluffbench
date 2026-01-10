@@ -20,3 +20,7 @@ input:
 target: |
   The doug_firs data was created with an inverted-U relationship where circumference peaks around 50m height and is smaller at both shorter and taller heights. A successful submission accurately describes that mid-circumference trees (around 150cm) have the tallest heights (around 45cm), while low-circumference (less than around 100) _and_ high-circumference (greater than around 200). The exact numbers don't need to be right, just the description of the trend.
 type: intuitive
+code: |
+  library(ggplot2)
+  ggplot(doug_firs, aes(x = circumference_cm, y = height_m)) +
+    geom_point()

@@ -14,3 +14,7 @@ input:
     briefly tell me what relationship you see in the plot.
 target: |
   The df dataset was created with a negative linear relationship where measure = 85 - 1.8*time plus random noise. The scatterplot shows measure values starting around 83 when time is 1 and decreasing to around 22 when time is 35, demonstrating a clear downward trend. A successful submission accurately describes that there is a negative correlation between time and measure, or that measure decreases as time increases, or that the relationship is inverse/negative, or that higher time values correspond to lower measure values, or that there is a downward trend over time.
+code: |
+  library(ggplot2)
+  ggplot(df, aes(x = time, y = measure)) +
+    geom_point()

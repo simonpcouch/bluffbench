@@ -25,3 +25,7 @@ target: |
   Category A shows higher overall metric values compared to Category B
   across all temperatures. A successful submission accurately describes
   this U-shaped pattern and the difference between categories.
+code: |
+  library(ggplot2)
+  ggplot(df, aes(x = temperature, y = metric, color = category)) +
+    geom_point()

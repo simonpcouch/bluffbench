@@ -18,3 +18,7 @@ target: |
   lowest measure values, group B has intermediate values, and group C has
   the highest values. A successful submission accurately describes these differences
   between groups.
+code: |
+  library(ggplot2)
+  ggplot(df, aes(x = group, y = measure)) +
+    geom_boxplot()

@@ -14,3 +14,7 @@ input:
     me what relationship you see.
 target: |
   The df dataset shows no correlation between x and y. The y values are randomly scattered with no systematic relationship to x. A successful submission accurately describes the absence of correlation or pattern.
+code: |
+  library(ggplot2)
+  ggplot(df, aes(x = x, y = y)) +
+    geom_point()

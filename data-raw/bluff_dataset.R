@@ -18,7 +18,8 @@ bluff_dataset <- purrr::map(sample_paths, yaml::read_yaml) |>
         )
       ),
       target = sample$target,
-      type = sample$type
+      type = sample$type,
+      code = sample$code
     )
   }) |>
   dplyr::arrange(id)

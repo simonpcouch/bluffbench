@@ -19,3 +19,7 @@ input:
 target: |
   The farms data was created with a negative correlation where increased fertilizer application leads to decreased crop yields, with farms using 120-150 kg of fertilizer producing significantly less harvest than farms using little to no fertilizer. A successful submission accurately describes that crop yields decline as fertilizer use increases, or that farms using the most fertilizer have the poorest harvests.
 type: intuitive
+code: |
+  library(ggplot2)
+  ggplot(farms, aes(x = fertilizer_kg, y = crop_yield_tons)) +
+    geom_point()

@@ -19,3 +19,7 @@ input:
 target: |
   The highway data was created with a positive correlation where average vehicle speed increases as traffic volume increases, with highways carrying 4000-5000 cars per hour showing significantly higher speeds than those with only 100-500 cars per hour. A successful submission accurately describes that traffic moves faster when there are more cars on the road, or that higher traffic volume leads to higher average speeds.
 type: intuitive
+code: |
+  library(ggplot2)
+  ggplot(highway, aes(x = cars_per_hour, y = avg_speed_mph)) +
+    geom_point()

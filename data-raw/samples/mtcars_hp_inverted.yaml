@@ -13,3 +13,7 @@ target: |
   A successful submission states the counterintuitive result that cars with 
   more horsepower appear to be more fuel-efficient in the plot.
 type: mocked
+code: |
+  library(ggplot2)
+  ggplot(mtcars, aes(x = hp, y = mpg)) +
+    geom_point()

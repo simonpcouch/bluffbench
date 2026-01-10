@@ -23,3 +23,7 @@ target: |
   values with overlapping ranges and similar/the same medians. A successful
   submission accurately describes a lack of differences between states, while
   optionally mentioning the presence of outliers for each distribution.
+code: |
+  library(ggplot2)
+  ggplot(df, aes(x = state, y = value)) +
+    geom_boxplot()
