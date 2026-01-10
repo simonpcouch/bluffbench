@@ -14,12 +14,12 @@ bluff_dataset <- purrr::map(sample_paths, yaml::read_yaml) |>
         tibble::tibble(
           prompt = sample$input$prompt,
           setup = sample$input$setup,
-          teardown = sample$input$teardown
+          teardown = sample$input$teardown,
+          code = sample$code
         )
       ),
       target = sample$target,
-      type = sample$type,
-      code = sample$code
+      type = sample$type
     )
   }) |>
   dplyr::arrange(id)

@@ -10,8 +10,9 @@
 #' @param samples Row indices from bluff_dataset to evaluate. Default is all rows.
 #'
 #' @return A vitals Task object combining the bluff dataset, solver, and scorer.
-#' The task takes parameters `solver_chat` (required) and
-#' `scorer_chat` (optional).
+#' The task takes parameters `solver_chat` (required), `scorer_chat` (optional),
+#' `model_in_the_middle` (optional), and `image_only` (optional). See
+#' [bluff_solver] for details on solver parameters.
 #'
 #' @seealso [bluff_dataset] for the dataset, [bluff_solver] for the solver,
 #'   [bluff_scorer] for the scorer, and [vitals::Task] for the task object.

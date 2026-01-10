@@ -106,7 +106,7 @@ solver_created_plot <- function(chat) {
   turns <- chat$get_turns()
 
   for (turn in turns) {
-    if (turn_has_successful_create_ggplot(turn)) {
+    if (turn_has_successful_create_ggplot(turn) || turn_has_image(turn)) {
       return(TRUE)
     }
   }
@@ -125,6 +125,21 @@ turn_has_successful_create_ggplot <- function(turn) {
         content@request@name == "create_ggplot" &&
         is.null(content@error)
     ) {
+      return(TRUE)
+    }
+  }
+
+  FALSE
+}
+
+turn_has_image <- function(turn) {
+  if (turn@role != "user") {
+    return(FALSE)
+  }
+
+  for (content in turn@contents) {
+    if (inherits(content, "ellmer::ContentImageInline") ||
+        inherits(content, "ellmer::ContentImageRemote")) {
       return(TRUE)
     }
   }

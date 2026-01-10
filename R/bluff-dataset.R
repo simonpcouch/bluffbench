@@ -13,6 +13,7 @@
 #'     swapping labels)
 #'   - `teardown`: R code that cleans up the transformation (removes the dataset)
 #'   - `prompt`: Natural language instruction asking the model to create a plot
+#'   - `code`: R code that generates the correct ggplot visualization for the sample
 #' * `target`: Description of what the transformation does and what a successful
 #'   model response should state
 #' * `type`: Either `"mocked"` (built-in R datasets that are manipulated) or

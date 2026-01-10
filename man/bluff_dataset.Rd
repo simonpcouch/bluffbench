@@ -25,6 +25,7 @@ The dataset is a tibble with one row per sample, containing:
 swapping labels)
 \item \code{teardown}: R code that cleans up the transformation (removes the dataset)
 \item \code{prompt}: Natural language instruction asking the model to create a plot
+\item \code{code}: R code that generates the correct ggplot visualization for the sample
 }
 \item \code{target}: Description of what the transformation does and what a successful
 model response should state

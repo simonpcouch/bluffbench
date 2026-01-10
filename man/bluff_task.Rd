@@ -20,8 +20,9 @@ bluff_task(
 }
 \value{
 A vitals Task object combining the bluff dataset, solver, and scorer.
-The task takes parameters \code{solver_chat} (required) and
-\code{scorer_chat} (optional).
+The task takes parameters \code{solver_chat} (required), \code{scorer_chat} (optional),
+\code{model_in_the_middle} (optional), and \code{image_only} (optional). See
+\link{bluff_solver} for details on solver parameters.
 }
 \description{
 Combines the \link{bluff_dataset}, \link{bluff_solver}, and \link{bluff_scorer} into a

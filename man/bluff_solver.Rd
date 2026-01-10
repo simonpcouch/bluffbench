@@ -4,12 +4,17 @@
 \alias{bluff_solver}
 \title{The bluff solver}
 \usage{
-bluff_solver(inputs, ..., solver_chat, model_in_the_middle = FALSE)
+bluff_solver(
+  inputs,
+  ...,
+  solver_chat,
+  model_in_the_middle = FALSE,
+  image_only = FALSE
+)
 }
 \arguments{
 \item{inputs}{List of input objects from the bluffbench dataset. Each input
-should have \code{code} (R code setting up the data transformation) and \code{prompt}
-(instruction for the model).}
+should have \code{setup}, \code{teardown}, \code{prompt}, and \code{code} fields.}
 
 \item{...}{Additional arguments (currently unused).}
 
@@ -21,6 +26,11 @@ how to set a system prompt using the prompt files included with the package.}
 directly to the solver, a separate model interprets the plot and returns
 a text description. This tests whether the solver's errors stem from
 visual interpretation versus other biases.}
+
+\item{image_only}{If \code{TRUE}, the solver receives only the pre-generated plot
+image and a generic prompt (e.g., "Briefly describe what you see in this
+plot.") without access to the \code{create_ggplot} tool. The plot is generated
+by running the \code{code} field from each input.}
 }
 \value{
 A list with the following components:
