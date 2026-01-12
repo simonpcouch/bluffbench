@@ -19,6 +19,11 @@ the <- rlang::new_environment()
 #'   directly to the solver, a separate model interprets the plot and returns
 #'   a text description. This tests whether the solver's errors stem from
 #'   visual interpretation versus other biases.
+#' @param prefill If `TRUE` (and `model_in_the_middle = TRUE`), the solver
+#'   receives the plot image and its response is prefilled with the
+#'   model-in-the-middle's interpretation. This forces the solver to start
+#'   its answer with an accurate description before continuing. Ignored when
+#'   `model_in_the_middle = FALSE`.
 #' @param image_only If `TRUE`, the solver receives only the pre-generated plot
 #'   image and a generic prompt (e.g., "Briefly describe what you see in this
 #'   plot.") without access to the `create_ggplot` tool. The plot is generated
@@ -62,11 +67,13 @@ bluff_solver <- function(
     ...,
     solver_chat,
     model_in_the_middle = FALSE,
+    prefill = FALSE,
     image_only = FALSE,
     clarify = FALSE
 ) {
   the$solver_chat <- solver_chat
   the$model_in_the_middle <- model_in_the_middle
+  the$prefill <- prefill
   check_inherits(solver_chat, "Chat")
 
   res <- vector("list", length = length(inputs))
@@ -97,7 +104,9 @@ bluff_solver <- function(
         }
         prompt_text <- paste0(prompt_text, " ", generate_clarification())
       }
-      ch_i$chat(prompt_text, echo = FALSE)
+      the$interpretation <- NULL
+      prefill_fn <- if (model_in_the_middle && prefill) function() the$interpretation else NULL
+      ch_i$chat(prompt_text, prefill = prefill_fn, echo = FALSE)
     }
 
     res[[i]] <- ch_i

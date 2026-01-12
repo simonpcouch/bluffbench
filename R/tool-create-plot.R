@@ -13,7 +13,11 @@ run_ggplot_code <- function(code, env) {
     ggplot2::ggsave(temp_file, plot = result, width = 7, height = 5, dpi = 150)
 
     if (isTRUE(the$model_in_the_middle)) {
-      return(interpret_plot(temp_file))
+      if (isTRUE(the$prefill)) {
+        the$interpretation <- interpret_plot_text(temp_file)
+      } else {
+        return(interpret_plot_result(temp_file))
+      }
     }
 
     return(ellmer::content_image_file(temp_file))
@@ -34,35 +38,13 @@ run_r_code <- function(code, env) {
   suppressWarnings(eval(parse(text = code), envir = env))
 }
 
-interpret_plot <- function(plot_file) {
-  image_content <- ellmer::content_image_file(plot_file)
+interpret_plot_text <- function(plot_file) {
+  interpretation <- interpret_plot_structured(plot_file)
+  paste0(interpretation$distribution, " ", interpretation$additional_context)
+}
 
-  ch <- the$solver_chat$clone()
-  ch$set_turns(list())
-  ch$set_system_prompt(paste(
-    readLines(system.file(
-      "prompts/interpret_plot.md",
-      package = "bluffbench"
-    )),
-    collapse = "\n"
-  ))
-
-  interpretation <- ch$chat_structured(
-    image_content,
-    type = ellmer::type_object(
-      distribution = ellmer::type_string(
-        "Exactly two sentences describing the distribution and shape of the plotted data elements. Focus on describing the actual first-order patterns you observe in the plotted data itself, ignoring any modeled results such as smoothed lines or trend curves. Describe what you see in the raw data."
-      ),
-      axes = ellmer::type_string(
-        "The limits of the x and y axes, described in a single sentence. For example: 'The x-axis ranges from 0 to 100, and the y-axis ranges from 20 to 80.'"
-      ),
-      additional_context = ellmer::type_string(
-        "Any additional context beyond axis limits and distribution that is necessary to understand the plot. For example, note if there are multiple faceted plots rather than one, if any modeled result (like a smooth line) fails to capture the shape of the actual plotted data, if there are discontinuities in trends (and their ranges or changepoints, if so), if there are obvious issues with the plotting approach, if any anomalies or surprising results are shown, or if notable theming or styling has been applied. Omit repeating information from plot labels or titles.",
-        required = FALSE
-      )
-    ),
-    echo = FALSE
-  )
+interpret_plot_result <- function(plot_file) {
+  interpretation <- interpret_plot_structured(plot_file)
 
   output_parts <- c(
     "A ggplot2 displaying:",
@@ -83,6 +65,37 @@ interpret_plot <- function(plot_file) {
 
   ellmer::ContentToolResult(
     value = paste(output_parts, collapse = "\n\n")
+  )
+}
+
+interpret_plot_structured <- function(plot_file) {
+  image_content <- ellmer::content_image_file(plot_file)
+
+  ch <- the$solver_chat$clone()
+  ch$set_turns(list())
+  ch$set_system_prompt(paste(
+    readLines(system.file(
+      "prompts/interpret_plot.md",
+      package = "bluffbench"
+    )),
+    collapse = "\n"
+  ))
+
+  ch$chat_structured(
+    image_content,
+    type = ellmer::type_object(
+      distribution = ellmer::type_string(
+        "Exactly two sentences describing the distribution and shape of the plotted data elements. Focus on describing the actual first-order patterns you observe in the plotted data itself, ignoring any modeled results such as smoothed lines or trend curves. Describe what you see in the raw data."
+      ),
+      axes = ellmer::type_string(
+        "The limits of the x and y axes, described in a single sentence. For example: 'The x-axis ranges from 0 to 100, and the y-axis ranges from 20 to 80.'"
+      ),
+      additional_context = ellmer::type_string(
+        "Any additional context beyond axis limits and distribution that is necessary to understand the plot. For example, note if there are multiple faceted plots rather than one, if any modeled result (like a smooth line) fails to capture the shape of the actual plotted data, if there are discontinuities in trends (and their ranges or changepoints, if so), if there are obvious issues with the plotting approach, if any anomalies or surprising results are shown, or if notable theming or styling has been applied. Omit repeating information from plot labels or titles.",
+        required = FALSE
+      )
+    ),
+    echo = FALSE
   )
 }
 

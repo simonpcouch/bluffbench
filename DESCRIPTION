@@ -28,7 +28,7 @@ Imports:
 Depends: 
     R (>= 3.5)
 Remotes:
-    tidyverse/ellmer
+    tidyverse/ellmer@claude-prefill
 LazyData: true
 URL: https://github.com/simonpcouch/bluffbench
 BugReports: https://github.com/simonpcouch/bluffbench/issues
