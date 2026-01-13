@@ -1,4 +1,4 @@
-# Run baseline samples with image_only = TRUE
+# Run baseline samples with clarify = TRUE
 
 RESULTS_DIR <- "inst/run/logs/baseline-clarify-true"
 
