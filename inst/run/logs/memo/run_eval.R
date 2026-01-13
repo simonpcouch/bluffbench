@@ -26,31 +26,3 @@ save(
   tsk_claude_4_5_sonnet,
   file = file.path(RESULTS_DIR, "tsk_claude_4_5_sonnet.rda")
 )
-
-# gemini 2.5 pro ----------------------------------------------------
-tsk_gemini_2_5_pro <- tsk$clone()
-tsk_gemini_2_5_pro$eval(
-  solver_chat = ellmer::chat_google_gemini(
-    model = "gemini-2.5-pro",
-    system_prompt = prompt_memo
-  )
-)
-
-save(
-  tsk_gemini_2_5_pro,
-  file = file.path(RESULTS_DIR, "tsk_gemini_2_5_pro.rda")
-)
-
-# gpt-5 -------------------------------------------------------------
-tsk_gpt_5 <- tsk$clone()
-tsk_gpt_5$eval(
-  solver_chat = ellmer::chat_openai(
-    model = "gpt-5",
-    system_prompt = prompt_memo
-  )
-)
-
-save(
-  tsk_gpt_5,
-  file = file.path(RESULTS_DIR, "tsk_gpt_5.rda")
-)
