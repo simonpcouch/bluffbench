@@ -8,14 +8,14 @@ devtools::load_all()
 adversarial_indices <- which(bluff_dataset$type %in% c("mocked", "intuitive"))
 tsk <- bluff_task(epochs = 3, samples = adversarial_indices)
 
-# claude 4.5 sonnet -------------------------------------------------
-tsk_claude_4_5_sonnet <- tsk$clone()
-tsk_claude_4_5_sonnet$eval(
-  solver_chat = ellmer::chat_anthropic(model = "claude-sonnet-4-5-20250929"),
+# claude 4.5 opus ---------------------------------------------------
+tsk_claude_4_5_opus <- tsk$clone()
+tsk_claude_4_5_opus$eval(
+  solver_chat = ellmer::chat_anthropic(model = "claude-opus-4-5-20251101"),
   model_in_the_middle = TRUE
 )
 
 save(
-  tsk_claude_4_5_sonnet,
-  file = file.path(RESULTS_DIR, "tsk_claude_4_5_sonnet.rda")
+  tsk_claude_4_5_opus,
+  file = file.path(RESULTS_DIR, "tsk_claude_4_5_opus.rda")
 )

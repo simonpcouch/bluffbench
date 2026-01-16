@@ -20,9 +20,14 @@ input:
     on the y-axis. represent `group` with color or another way.
     briefly tell me what you see.
 target: |
-  The plot shows score increases with duration, or that there is a positive correlation between duration and score, or that higher duration
+  The df dataset was created with three groups (A, B, C) that each show a positive relationship between
+  duration and score, but with different baseline levels and slopes. When plotted without distinguishing groups,
+  the scatterplot shows score values ranging from around 3-15 at duration 10 up to around 12-32 at duration 60,
+  creating a generally upward trend with considerable scatter. The pattern reveals multiple overlapping positive trends,
+  as if there are several subpopulations with different baseline rates. A successful submission accurately describes that
+  score increases with duration, or that there is a positive correlation between duration and score, or that higher duration
   values correspond to higher scores, or that there is an upward trend. Submissions may also note the scatter or the appearance
-  of multiple trends/clusters in the data (from the three subgroups with different slopes and baselines).
+  of multiple trends/clusters in the data.
 code: |
   library(ggplot2)
   ggplot(df, aes(x = duration, y = score, color = group)) +

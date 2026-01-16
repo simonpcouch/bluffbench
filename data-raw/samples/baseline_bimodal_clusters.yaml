@@ -19,9 +19,12 @@ input:
     create a scatterplot with the df dataset.
     put `x_coord` on the x-axis and `y_coord` on the y-axis. briefly describe what you observe.
 target: |
-  The plot shows clear bimodal clustering with a visible gap
+  The df dataset was created with two distinct clusters: one centered around
+  x_coord = 20 and y_coord = 30, and another centered around x_coord = 45 and
+  y_coord = 60. The scatterplot shows clear bimodal clustering with a visible gap
   between the two groups, with the first cluster in the lower-left region
-  and the second cluster in the upper-right region. A successful submission accurately describes that
+  (roughly x: 15-25, y: 20-40) and the second cluster in the upper-right region
+  (roughly x: 40-50, y: 50-70). A successful submission accurately describes that
   there are two distinct clusters or groups in the data, or that the data shows bimodal
   clustering, or that points form two separated groups, or that there is a clear gap between
   two populations. Submissions may note the approximate locations of the clusters or describe

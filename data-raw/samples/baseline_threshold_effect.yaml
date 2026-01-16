@@ -17,7 +17,9 @@ input:
     create a scatterplot with the df dataset.
     put `level` on the x-axis and `outcome` on the y-axis. briefly describe what you see.
 target: |
-  The plot shows a clear threshold effect with two distinct regions: lower outcomes below level 15 and substantially higher
+  The df dataset was created with a discontinuity at level 15, where the relationship changes
+  from a gentle increase (outcome ≈ 12-17 for level 0-15) to a sudden jump to higher values (outcome ≈ 35-50 for level 15-30).
+  The scatterplot shows a clear threshold effect with two distinct regions: lower outcomes below level 15 and substantially higher
   outcomes above level 15. A successful submission accurately describes that there is a discontinuity or threshold effect around level 15,
   or that outcome jumps up at a certain point, or that there are two different relationships before and after a threshold, or that the pattern
   shows a sudden increase rather than a smooth trend. Submissions may note the approximate location of the threshold or describe it as
