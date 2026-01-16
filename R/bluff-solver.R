@@ -23,10 +23,10 @@ the <- rlang::new_environment()
 #'   image and a generic prompt (e.g., "Briefly describe what you see in this
 #'   plot.") without access to the `create_ggplot` tool. The plot is generated
 #'   by running the `code` field from each input.
-#' @param clarify If `TRUE`, appends a randomized clarification to the prompt
-#'   indicating that the data object already exists in the environment. This
-#'   can help prevent models from recreating data instead of using the existing
-#'   object. Ignored when `image_only = TRUE`.
+#' @param clarify If `TRUE` (the default), appends a randomized clarification 
+#'   to the prompt indicating that the data object already exists in the 
+#'   environment. This can help prevent models from recreating data instead of 
+#'   using the existing object. Ignored when `image_only = TRUE`.
 #'
 #' @return A list with the following components:
 #' \describe{
@@ -63,7 +63,7 @@ bluff_solver <- function(
     solver_chat,
     model_in_the_middle = FALSE,
     image_only = FALSE,
-    clarify = FALSE
+    clarify = TRUE
 ) {
   the$solver_chat <- solver_chat
   the$model_in_the_middle <- model_in_the_middle

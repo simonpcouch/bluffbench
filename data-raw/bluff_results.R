@@ -9,9 +9,9 @@ bluff_results <-
   select(-metadata) %>%
   mutate(
     model = case_when(
-      model == "claude_4_5_sonnet" ~ "Claude Sonnet 4.5",
-      model == "gemini_2_5_pro" ~ "Gemini Pro 2.5",
-      model == "gpt_5" ~ "GPT-5"
+      model == "claude_4_5_opus" ~ "Claude Opus 4.5",
+      model == "gemini_3_pro" ~ "Gemini 3 Pro",
+      model == "gpt_5_2" ~ "GPT-5.2"
     )
   )
 

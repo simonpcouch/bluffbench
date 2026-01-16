@@ -10,7 +10,7 @@ bluff_solver(
   solver_chat,
   model_in_the_middle = FALSE,
   image_only = FALSE,
-  clarify = FALSE
+  clarify = TRUE
 )
 }
 \arguments{
@@ -33,10 +33,10 @@ image and a generic prompt (e.g., "Briefly describe what you see in this
 plot.") without access to the \code{create_ggplot} tool. The plot is generated
 by running the \code{code} field from each input.}
 
-\item{clarify}{If \code{TRUE}, appends a randomized clarification to the prompt
-indicating that the data object already exists in the environment. This
-can help prevent models from recreating data instead of using the existing
-object. Ignored when \code{image_only = TRUE}.}
+\item{clarify}{If \code{TRUE} (the default), appends a randomized clarification
+to the prompt indicating that the data object already exists in the
+environment. This can help prevent models from recreating data instead of
+using the existing object. Ignored when \code{image_only = TRUE}.}
 }
 \value{
 A list with the following components:

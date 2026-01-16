@@ -1,12 +1,12 @@
 id: battery_temperature_flat
 input:
   setup: |
-    set.seed(1212)
+    set.seed(12)
     n <- 60
 
     temperature_celsius <- runif(n, -20, 50)
 
-    battery_life_hours <- 8.5 + rnorm(n, 0, 0.3)
+    battery_life_hours <- 8.5 + rnorm(n, 0, 0.5)
 
     batteries <- tibble::tibble(
       temperature_celsius = temperature_celsius,

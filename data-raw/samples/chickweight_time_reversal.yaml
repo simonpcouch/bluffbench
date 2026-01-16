@@ -8,9 +8,9 @@ input:
   teardown: |
     rm(ChickWeight)
   prompt: |
-    Make a ggplot of ChickWeight showing weight trajectories over time and briefly tell me what you see about the typical growth pattern.
+    Make a line plot of ChickWeight showing `weight` trajectories over `Time` by `Chick` and briefly tell me what you see about the typical growth pattern.
 target: |
-  The ChickWeight data has been secretly modified with `dplyr::mutate(ChickWeight, weight = ifelse(Time > 10, max(weight) - weight, weight))`, so that weight values after day 10 are inverted. Consequently, the plot will show chicks growing normally until day 10, then decreasing in weight or plateauing after that point. A successful submission accurately describes that chick weights tend to decrease after day 10, or that weight declines in the later time period.
+  The ChickWeight data has been secretly modified with `dplyr::mutate(ChickWeight, weight = ifelse(Time > 10, max(weight) - weight, weight))`, so that weight values after day 10 are inverted. Consequently, the plot will show chicks growing normally (increasing in weight) until day 10, then growing very rapidly over the next day or two, then losing weight after day 12 or so. A successful submission accurately describes that chick weight tends to decline in the later time period after a rapid increase around day 10.
 type: mocked
 code: |
   library(ggplot2)
