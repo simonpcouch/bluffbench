@@ -1,9 +1,11 @@
 Package: bluffbench
 Title: Evaluate LLM Ability to Interpret Counterintuitive Visualizations
 Version: 0.0.1.9000
-Authors@R:
+Authors@R: c(
     person("Simon", "Couch", , "simon.couch@posit.co", role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0001-5676-5107"))
+           comment = c(ORCID = "0000-0001-5676-5107")),
+    person("Sara", "Altman", , "sara.altman@posit.co", role = "aut")
+  )
 Description: An LLM evaluation built with 'vitals' that tests language models'
     ability to accurately interpret visualizations with counterintuitive data.
     Models are given a tool to create 'ggplot2' plots from secretly modified
