@@ -1,4 +1,4 @@
-# Run mocked and intuitive samples with memo prompt
+# Run mocked and intuitive samples with extended thinking enabled
 
 RESULTS_DIR <- "inst/run/logs/extended-thinking"
 
