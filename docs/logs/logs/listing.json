@@ -18,25 +18,6 @@
       }
     }
   },
-  "2026-01-15T16-47-45-06-00_bluffbench-claude-opus-4-5-20251101-3966315dd518af79296f5b.json": {
-    "eval_id": {},
-    "run_id": "3hEGO88wa4d7fB0NpIlw7v",
-    "task": "bluffbench/claude-opus-4-5-20251101/3966315dd518af79296f5b",
-    "task_id": "bluffbench/claude-opus-4-5-20251101/3966315dd518af79296f5b",
-    "task_version": 0,
-    "version": 2,
-    "status": "success",
-    "model": "bluff_solver (claude-opus-4-5-20251101)",
-    "started_at": "2026-01-15T16:47:45-06:00",
-    "completed_at": "2026-01-15T16:47:45-06:00",
-    "primary_metric": {
-      "name": "accuracy",
-      "value": 63.964,
-      "params": {
-        "1": "numeric_scores"
-      }
-    }
-  },
   "2026-01-15T17-13-57-08-00_bluffbench-gemini-3-pro-preview-465475d21aad6cc3ab920b.json": {
     "eval_id": {},
     "run_id": "nAQ91J6uN9Bm2ax2rtrHbV",
@@ -51,6 +32,158 @@
     "primary_metric": {
       "name": "accuracy",
       "value": 61.2613,
+      "params": {
+        "1": "numeric_scores"
+      }
+    }
+  },
+  "2026-02-05T14-20-13-08-00_bluffbench_claude-opus-4-6_3966315dd518af79296f5b.json": {
+    "eval_id": {},
+    "run_id": "0EFP2IqQZMyfDDv9nLxnb1",
+    "task": "bluffbench/claude-opus-4-6/3966315dd518af79296f5b",
+    "task_id": "bluffbench/claude-opus-4-6/3966315dd518af79296f5b",
+    "task_version": 0,
+    "version": 2,
+    "status": "success",
+    "model": "bluff_solver (claude-opus-4-6)",
+    "started_at": "2026-02-05T14:20:13-08:00",
+    "completed_at": "2026-02-05T14:20:13-08:00",
+    "primary_metric": {
+      "name": "accuracy",
+      "value": 63.964,
+      "params": {
+        "1": "numeric_scores"
+      }
+    }
+  },
+  "2026-01-12T14-20-29-08-00_bluffbench_465475d21aad6cc3ab920b.json": {
+    "eval_id": {},
+    "run_id": "b4ik7EVIhvUT1EjjBFhIs0",
+    "task": "bluffbench",
+    "task_id": "465475d21aad6cc3ab920b",
+    "task_version": 0,
+    "version": 2,
+    "status": "success",
+    "model": "bluff_solver (gemini-2.5-pro)",
+    "started_at": "2026-01-12T14:20:29-08:00",
+    "completed_at": "2026-01-12T14:20:29-08:00",
+    "primary_metric": {
+      "name": "accuracy",
+      "value": 89.7436,
+      "params": {
+        "1": "numeric_scores"
+      }
+    }
+  },
+  "2026-01-12T14-21-24-08-00_bluffbench_465475d21aad6cc3ab920b.json": {
+    "eval_id": {},
+    "run_id": "WwN5IISmvOomOZ4p8DXQW9",
+    "task": "bluffbench",
+    "task_id": "465475d21aad6cc3ab920b",
+    "task_version": 0,
+    "version": 2,
+    "status": "success",
+    "model": "bluff_solver (gemini-2.5-pro)",
+    "started_at": "2026-01-12T14:21:24-08:00",
+    "completed_at": "2026-01-12T14:21:24-08:00",
+    "primary_metric": {
+      "name": "accuracy",
+      "value": 87.1795,
+      "params": {
+        "1": "numeric_scores"
+      }
+    }
+  },
+  "2026-01-15T19-15-07-08-00_bluffbench-claude-opus-4-5-20251101-579cc124c9f2ed740cda1c_bluffbench_claude-opus-4-5-20251101_579cc124c9f2ed740cda1c.json": {
+    "eval_id": {},
+    "run_id": "SyrKoIrIbAL390fT6yP1tN",
+    "task": "bluffbench/claude-opus-4-5-20251101/579cc124c9f2ed740cda1c",
+    "task_id": "bluffbench/claude-opus-4-5-20251101/579cc124c9f2ed740cda1c",
+    "task_version": 0,
+    "version": 2,
+    "status": "success",
+    "model": "bluff_solver (claude-opus-4-5-20251101)",
+    "started_at": "2026-01-15T19:15:07-08:00",
+    "completed_at": "2026-01-15T19:15:07-08:00",
+    "primary_metric": {
+      "name": "accuracy",
+      "value": 100,
+      "params": {
+        "1": "numeric_scores"
+      }
+    }
+  },
+  "2026-01-15T19-28-24-08-00_bluffbench-gpt-5.2-579cc124c9f2ed740cda1c_bluffbench_gpt-5.2_579cc124c9f2ed740cda1c.json": {
+    "eval_id": {},
+    "run_id": "WwN5IISmvOomOZ4p8DXQW9",
+    "task": "bluffbench/gpt-5.2/579cc124c9f2ed740cda1c",
+    "task_id": "bluffbench/gpt-5.2/579cc124c9f2ed740cda1c",
+    "task_version": 0,
+    "version": 2,
+    "status": "success",
+    "model": "bluff_solver (gpt-5.2)",
+    "started_at": "2026-01-15T19:28:24-08:00",
+    "completed_at": "2026-01-15T19:28:24-08:00",
+    "primary_metric": {
+      "name": "accuracy",
+      "value": 97.4359,
+      "params": {
+        "1": "numeric_scores"
+      }
+    }
+  },
+  "2026-01-15T18-45-44-08-00_bluffbench-claude-opus-4-5-20251101-3966315dd518af79296f5b_bluffbench_claude-opus-4-5-20251101_3966315dd518af79296f5b.json": {
+    "eval_id": {},
+    "run_id": "3wkdoD1pFKf6rdsZbiZIFI",
+    "task": "bluffbench/claude-opus-4-5-20251101/3966315dd518af79296f5b",
+    "task_id": "bluffbench/claude-opus-4-5-20251101/3966315dd518af79296f5b",
+    "task_version": 0,
+    "version": 2,
+    "status": "success",
+    "model": "bluff_solver (claude-opus-4-5-20251101)",
+    "started_at": "2026-01-15T18:45:44-08:00",
+    "completed_at": "2026-01-15T18:45:44-08:00",
+    "primary_metric": {
+      "name": "accuracy",
+      "value": 54.1667,
+      "params": {
+        "1": "numeric_scores"
+      }
+    }
+  },
+  "2026-01-15T18-49-52-08-00_bluffbench-claude-opus-4-5-20251101-217c644b6020290b34bb0e_bluffbench_claude-opus-4-5-20251101_217c644b6020290b34bb0e.json": {
+    "eval_id": {},
+    "run_id": "KExnueDPGhHSKh5oeONCDQ",
+    "task": "bluffbench/claude-opus-4-5-20251101/217c644b6020290b34bb0e",
+    "task_id": "bluffbench/claude-opus-4-5-20251101/217c644b6020290b34bb0e",
+    "task_version": 0,
+    "version": 2,
+    "status": "success",
+    "model": "bluff_solver (claude-opus-4-5-20251101)",
+    "started_at": "2026-01-15T18:49:52-08:00",
+    "completed_at": "2026-01-15T18:49:52-08:00",
+    "primary_metric": {
+      "name": "accuracy",
+      "value": 40.2778,
+      "params": {
+        "1": "numeric_scores"
+      }
+    }
+  },
+  "2026-01-15T18-46-47-08-00_bluffbench-claude-opus-4-5-20251101-3966315dd518af79296f5b_bluffbench_claude-opus-4-5-20251101_3966315dd518af79296f5b.json": {
+    "eval_id": {},
+    "run_id": "j4cVcNdQFFqFjiJcderw30",
+    "task": "bluffbench/claude-opus-4-5-20251101/3966315dd518af79296f5b",
+    "task_id": "bluffbench/claude-opus-4-5-20251101/3966315dd518af79296f5b",
+    "task_version": 0,
+    "version": 2,
+    "status": "success",
+    "model": "bluff_solver (claude-opus-4-5-20251101)",
+    "started_at": "2026-01-15T18:46:47-08:00",
+    "completed_at": "2026-01-15T18:46:47-08:00",
+    "primary_metric": {
+      "name": "accuracy",
+      "value": 50,
       "params": {
         "1": "numeric_scores"
       }
