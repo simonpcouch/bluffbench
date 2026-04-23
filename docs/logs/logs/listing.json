@@ -55,5 +55,24 @@
         "1": "numeric_scores"
       }
     }
+  },
+  "2026-04-21T15-50-04-07-00_bluffbench-claude-opus-4-7-3966315dd518af79296f5b.json": {
+    "eval_id": {},
+    "run_id": "ZDuk8vVoEVQi0DBhzi1JgR",
+    "task": "bluffbench/claude-opus-4-7/3966315dd518af79296f5b",
+    "task_id": "bluffbench/claude-opus-4-7/3966315dd518af79296f5b",
+    "task_version": 0,
+    "version": 2,
+    "status": "success",
+    "model": "bluff_solver (claude-opus-4-7)",
+    "started_at": "2026-04-21T15:50:04-07:00",
+    "completed_at": "2026-04-21T15:50:04-07:00",
+    "primary_metric": {
+      "name": "accuracy",
+      "value": 67.5676,
+      "params": {
+        "1": "numeric_scores"
+      }
+    }
   }
 }

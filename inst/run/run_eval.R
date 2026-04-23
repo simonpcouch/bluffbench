@@ -6,7 +6,15 @@ tsk <- bluff_task(epochs = 3)
 # To use a model-in-the-middle that interprets plots as text:
 # tsk$eval(solver_chat = ..., model_in_the_middle = TRUE)
 
-# claude 4.6 Opus ----------------------------------------------------
+# Claude 4.7 Opus ----------------------------------------------------
+tsk_claude_4_7_opus <- tsk$clone()
+tsk_claude_4_7_opus$eval(
+  solver_chat = ellmer::chat_anthropic(model = "claude-opus-4-7")
+)
+
+save(tsk_claude_4_7_opus, file = "inst/run/tasks/tsk_claude_4_7_opus.rda")
+
+# Claude 4.6 Opus ----------------------------------------------------
 tsk_claude_4_6_opus <- tsk$clone()
 tsk_claude_4_6_opus$eval(
   solver_chat = ellmer::chat_anthropic(model = "claude-opus-4-6")
